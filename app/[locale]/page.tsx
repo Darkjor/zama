@@ -5,7 +5,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { Gallery } from "@/components/Gallery";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
-import { disponibilidad, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
+import { disponibilidad, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
 import { formatDate, formatMXN, formatMXNCompact, formatNumber } from "@/lib/format";
 import { SITE_URL } from "@/lib/seo";
@@ -22,7 +22,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <Vivir />
       <Destino />
       <Galeria />
-      <Amenidades />
+      {mostrarAmenidades && <Amenidades />}
       <Inversion />
       <Tipologias locale={locale} />
       <Disponibilidad locale={locale} />
@@ -166,15 +166,19 @@ async function Vivir() {
   const t = await getTranslations("vivir");
   const tw = await getTranslations("whatsapp");
   const images = ["/img/laguna.webp", "/img/amanecer.webp", "/img/villa-fachada.webp", "/img/casa-club.webp", "/img/interior.webp", "/img/sendero.webp"];
-  const cards = images.map((image, i) => {
-    const n = i + 1;
-    return {
-      image,
-      tag: t(`c${n}Tag` as "c1Tag"),
-      title: t(`c${n}Title` as "c1Title"),
-      body: t(`c${n}Body` as "c1Body"),
-    };
-  });
+  const cards = images
+    .map((image, i) => {
+      const n = i + 1;
+      return {
+        n,
+        image,
+        tag: t(`c${n}Tag` as "c1Tag"),
+        title: t(`c${n}Title` as "c1Title"),
+        body: t(`c${n}Body` as "c1Body"),
+      };
+    })
+    // La tarjeta 4 es "Casa Club + 11 amenidades".
+    .filter((c) => mostrarAmenidades || c.n !== 4);
   return (
     <HorizontalScroll
       eyebrow={t("eyebrow")}

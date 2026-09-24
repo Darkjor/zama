@@ -29,6 +29,13 @@ export const site = {
   driveUrl: "https://drive.google.com/drive/folders/1qnQrOFwN10p_Eo1WHXeBI1A8pBwDaMgd",
 } as const;
 
+/**
+ * Oculta todo lo que menciona amenidades (sección "Casa Club" y la tarjeta
+ * del carrusel "Vivir en ZAMÄ") mientras el cliente confirma cuáles serán
+ * las amenidades reales. Cambiar a `true` para volver a mostrarlo.
+ */
+export const mostrarAmenidades = false;
+
 export const pricePerM2 = 3470;
 
 export type Tipologia = {
