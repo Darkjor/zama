@@ -38,7 +38,7 @@ export type LeadFormState =
   | { status: "idle" }
   | { status: "success" }
   | { status: "error" }
-  | { status: "invalid"; errors: Partial<Record<LeadField, string>> };
+  | { status: "invalid"; errors: Partial<Record<LeadField, string>>; values: Record<string, string> };
 
 export function readLeadForm(formData: FormData) {
   const get = (k: string) => String(formData.get(k) ?? "");

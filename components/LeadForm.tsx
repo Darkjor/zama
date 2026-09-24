@@ -43,6 +43,7 @@ export function LeadForm({ variant, className = "" }: Props) {
   }, []);
 
   const errors = state.status === "invalid" ? state.errors : {};
+  const values: Record<string, string> = state.status === "invalid" ? state.values : {};
   const err = (f: LeadField) => (errors[f] ? t(errors[f] as "errNombre") : undefined);
   const title = variant === "broker" ? t("titleBroker") : t("titleCotiza");
 
@@ -92,19 +93,19 @@ export function LeadForm({ variant, className = "" }: Props) {
 
       <div className="grid gap-4">
         <Field id={`${uid}-nombre`} label={t("nombre")} error={err("nombre")}>
-          <input id={`${uid}-nombre`} name="nombre" autoComplete="name" required className="field" aria-invalid={!!err("nombre")} aria-describedby={err("nombre") ? `${uid}-nombre-err` : undefined} />
+          <input id={`${uid}-nombre`} name="nombre" defaultValue={values.nombre} autoComplete="name" required className="field" aria-invalid={!!err("nombre")} aria-describedby={err("nombre") ? `${uid}-nombre-err` : undefined} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field id={`${uid}-telefono`} label={t("telefono")} error={err("telefono")}>
-            <input id={`${uid}-telefono`} name="telefono" type="tel" inputMode="tel" autoComplete="tel" required className="field" aria-invalid={!!err("telefono")} aria-describedby={err("telefono") ? `${uid}-telefono-err` : undefined} />
+            <input id={`${uid}-telefono`} name="telefono" defaultValue={values.telefono} type="tel" inputMode="tel" autoComplete="tel" required className="field" aria-invalid={!!err("telefono")} aria-describedby={err("telefono") ? `${uid}-telefono-err` : undefined} />
           </Field>
           <Field id={`${uid}-email`} label={t("email")} error={err("email")}>
-            <input id={`${uid}-email`} name="email" type="email" autoComplete="email" className="field" aria-invalid={!!err("email")} aria-describedby={err("email") ? `${uid}-email-err` : undefined} />
+            <input id={`${uid}-email`} name="email" defaultValue={values.email} type="email" autoComplete="email" className="field" aria-invalid={!!err("email")} aria-describedby={err("email") ? `${uid}-email-err` : undefined} />
           </Field>
         </div>
         {variant === "cotizacion" ? (
           <Field id={`${uid}-interes`} label={t("interes")}>
-            <select id={`${uid}-interes`} name="interes" className="field" defaultValue="lote">
+            <select id={`${uid}-interes`} name="interes" className="field" defaultValue={values.interes || "lote"}>
               <option value="lote">{t("interesLote")}</option>
               <option value="villa">{t("interesVilla")}</option>
               <option value="indeciso">{t("interesAmbos")}</option>
@@ -112,11 +113,11 @@ export function LeadForm({ variant, className = "" }: Props) {
           </Field>
         ) : (
           <Field id={`${uid}-empresa`} label={t("empresa")}>
-            <input id={`${uid}-empresa`} name="empresa" autoComplete="organization" className="field" />
+            <input id={`${uid}-empresa`} name="empresa" defaultValue={values.empresa} autoComplete="organization" className="field" />
           </Field>
         )}
         <Field id={`${uid}-mensaje`} label={t("mensaje")}>
-          <textarea id={`${uid}-mensaje`} name="mensaje" rows={2} maxLength={2000} className="field resize-none" />
+          <textarea id={`${uid}-mensaje`} name="mensaje" defaultValue={values.mensaje} rows={2} maxLength={2000} className="field resize-none" />
         </Field>
       </div>
 

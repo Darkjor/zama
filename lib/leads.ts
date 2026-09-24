@@ -17,7 +17,13 @@ export async function sendLead(_prev: LeadFormState, formData: FormData): Promis
         errors[field] = issue.message;
       }
     }
-    return { status: "invalid", errors };
+    // React vacía el formulario tras cada envío; se devuelven los valores
+    // para que la persona no tenga que reescribir todo por un solo error.
+    const values: Record<string, string> = {};
+    for (const k of ["nombre", "telefono", "email", "interes", "mensaje", "empresa"]) {
+      values[k] = String(formData.get(k) ?? "");
+    }
+    return { status: "invalid", errors, values };
   }
 
   const supabase = await createClient();
