@@ -70,6 +70,21 @@ async function Hero() {
   return (
     <section id="inicio" className="relative isolate overflow-hidden bg-tinta">
       <Image src="/img/laguna.webp" alt="" fill priority sizes="100vw" className="slow-zoom -z-10 object-cover" />
+      {/* Video de Mexo (el mismo del hero de Fuerza Migrante), alojado en
+          /public. La foto de la laguna queda debajo como póster y respaldo si
+          el video no carga o la persona prefiere menos movimiento. */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/img/laguna.webp"
+        aria-hidden
+        className="absolute inset-0 -z-10 size-full object-cover motion-reduce:hidden"
+      >
+        <source src="/video/hero.webm" type="video/webm" />
+      </video>
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/40 to-transparent" />
 
