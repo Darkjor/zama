@@ -10,6 +10,7 @@ export const INTERES_LABEL: Record<string, string> = {
   lote: "Lote residencial",
   villa: "Villa Boutique",
   indeciso: "Aún no sabe",
+  brochure: "Brochure (popup de salida)",
 };
 
 export const PAGE_SIZE = 25;

@@ -49,7 +49,17 @@
     "errTelefono": "Please enter a valid phone number.",
     "errEmail": "Please enter a valid email.",
     "privacy": "By sending, you agree to our",
-    "privacyLink": "privacy notice"
+    "privacyLink": "privacy notice",
+    "titleBrochure": "Get the brochure",
+    "okBrochure": "All set! Here's the brochure and fact sheets.",
+    "abrirBrochure": "Open brochure"
+  },
+  "exit": {
+    "eyebrow": "Before you go",
+    "title": "Take the ZAMÄ brochure with you",
+    "body": "Pricing, homes and lots, floor plans, and legal certainty in one place. Leave your WhatsApp and open it right away.",
+    "close": "Close",
+    "noMostrar": "Don't show again"
   },
   "intro": {
     "eyebrow": "ZAMÄ means sunrise",

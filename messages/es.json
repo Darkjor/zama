@@ -49,7 +49,17 @@
     "errTelefono": "Escribe un teléfono válido.",
     "errEmail": "Escribe un correo válido.",
     "privacy": "Al enviar aceptas nuestro",
-    "privacyLink": "aviso de privacidad"
+    "privacyLink": "aviso de privacidad",
+    "titleBrochure": "Recibe el brochure",
+    "okBrochure": "¡Listo! Aquí tienes el brochure y las fichas técnicas.",
+    "abrirBrochure": "Abrir brochure"
+  },
+  "exit": {
+    "eyebrow": "Antes de irte",
+    "title": "Llévate el brochure de ZAMÄ",
+    "body": "Precios, tipologías, planos y certeza jurídica en un solo lugar. Déjanos tu WhatsApp y ábrelo al instante.",
+    "close": "Cerrar",
+    "noMostrar": "No volver a mostrar"
   },
   "intro": {
     "eyebrow": "ZAMÄ significa amanecer",

@@ -155,6 +155,14 @@
   }
 }
 
+.exit-dialog[open] {
+  animation: hero-in 450ms var(--ease-out-soft) both;
+}
+/* El <dialog> recibe el foco al abrir; el contorno va en sus controles, no en el marco. */
+.exit-dialog:focus-visible {
+  outline: none;
+}
+
 .hero-in {
   animation: hero-in 900ms var(--ease-out-soft) both;
 }

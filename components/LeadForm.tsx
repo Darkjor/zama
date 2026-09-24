@@ -8,12 +8,17 @@ import { Link } from "@/i18n/navigation";
 import { sendLead } from "@/lib/leads";
 import type { LeadField, LeadFormState } from "@/lib/lead-schema";
 import { whatsappLink } from "@/lib/whatsapp";
+import { site } from "@/lib/site";
+
+/** Marca en localStorage que esta persona ya dejó sus datos (lo lee ExitIntent). */
+export const LEAD_SENT_KEY = "zama-lead-enviado";
 
 const initial: LeadFormState = { status: "idle" };
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign"] as const;
 
 type Props = {
-  variant: "cotizacion" | "broker";
+  /** "brochure": versión corta (nombre + WhatsApp) del popup de salida. */
+  variant: "cotizacion" | "broker" | "brochure";
   className?: string;
 };
 
@@ -42,10 +47,18 @@ export function LeadForm({ variant, className = "" }: Props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (state.status !== "success") return;
+    try {
+      localStorage.setItem(LEAD_SENT_KEY, "1");
+    } catch {}
+  }, [state.status]);
+
   const errors = state.status === "invalid" ? state.errors : {};
   const values: Record<string, string> = state.status === "invalid" ? state.values : {};
   const err = (f: LeadField) => (errors[f] ? t(errors[f] as "errNombre") : undefined);
-  const title = variant === "broker" ? t("titleBroker") : t("titleCotiza");
+  const title = variant === "broker" ? t("titleBroker") : variant === "brochure" ? t("titleBrochure") : t("titleCotiza");
+  const isBrochure = variant === "brochure";
 
   if (state.status === "success") {
     return (
@@ -54,7 +67,17 @@ export function LeadForm({ variant, className = "" }: Props) {
           <circle cx="12" cy="12" r="10" />
           <path d="M7.5 12.5l3 3 6-6.5" />
         </svg>
-        <p className="display text-3xl">{t("ok")}</p>
+        <p className="display text-3xl">{isBrochure ? t("okBrochure") : t("ok")}</p>
+        {isBrochure && (
+          <a
+            href={site.driveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-ui mt-6 flex w-full items-center justify-center rounded-full bg-crema px-6 py-3.5 text-sm font-medium text-caoba hover:bg-white"
+          >
+            {t("abrirBrochure")}
+          </a>
+        )}
         <a
           href={whatsappLink(tw("general"))}
           target="_blank"
@@ -78,7 +101,9 @@ export function LeadForm({ variant, className = "" }: Props) {
         {title}
       </h3>
 
-      <input type="hidden" name="tipo" value={variant} />
+      {/* El popup de salida entra al CRM como "contacto" con interés "brochure". */}
+      <input type="hidden" name="tipo" value={isBrochure ? "contacto" : variant} />
+      {isBrochure && <input type="hidden" name="interes" value="brochure" />}
       <input type="hidden" name="locale" value={locale} />
       {UTM_KEYS.map((k) => (
         <input key={k} type="hidden" name={k} ref={(el) => void (hidden.current[k] = el)} />
@@ -95,13 +120,15 @@ export function LeadForm({ variant, className = "" }: Props) {
         <Field id={`${uid}-nombre`} label={t("nombre")} error={err("nombre")}>
           <input id={`${uid}-nombre`} name="nombre" defaultValue={values.nombre} autoComplete="name" required className="field" aria-invalid={!!err("nombre")} aria-describedby={err("nombre") ? `${uid}-nombre-err` : undefined} />
         </Field>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className={`grid gap-4 ${isBrochure ? "" : "sm:grid-cols-2"}`}>
           <Field id={`${uid}-telefono`} label={t("telefono")} error={err("telefono")}>
             <input id={`${uid}-telefono`} name="telefono" defaultValue={values.telefono} type="tel" inputMode="tel" autoComplete="tel" required className="field" aria-invalid={!!err("telefono")} aria-describedby={err("telefono") ? `${uid}-telefono-err` : undefined} />
           </Field>
-          <Field id={`${uid}-email`} label={t("email")} error={err("email")}>
-            <input id={`${uid}-email`} name="email" defaultValue={values.email} type="email" autoComplete="email" className="field" aria-invalid={!!err("email")} aria-describedby={err("email") ? `${uid}-email-err` : undefined} />
-          </Field>
+          {!isBrochure && (
+            <Field id={`${uid}-email`} label={t("email")} error={err("email")}>
+              <input id={`${uid}-email`} name="email" defaultValue={values.email} type="email" autoComplete="email" className="field" aria-invalid={!!err("email")} aria-describedby={err("email") ? `${uid}-email-err` : undefined} />
+            </Field>
+          )}
         </div>
         {variant === "cotizacion" ? (
           <Field id={`${uid}-interes`} label={t("interes")}>
@@ -111,14 +138,16 @@ export function LeadForm({ variant, className = "" }: Props) {
               <option value="indeciso">{t("interesAmbos")}</option>
             </select>
           </Field>
-        ) : (
+        ) : variant === "broker" ? (
           <Field id={`${uid}-empresa`} label={t("empresa")}>
             <input id={`${uid}-empresa`} name="empresa" defaultValue={values.empresa} autoComplete="organization" className="field" />
           </Field>
+        ) : null}
+        {!isBrochure && (
+          <Field id={`${uid}-mensaje`} label={t("mensaje")}>
+            <textarea id={`${uid}-mensaje`} name="mensaje" defaultValue={values.mensaje} rows={2} maxLength={2000} className="field resize-none" />
+          </Field>
         )}
-        <Field id={`${uid}-mensaje`} label={t("mensaje")}>
-          <textarea id={`${uid}-mensaje`} name="mensaje" defaultValue={values.mensaje} rows={2} maxLength={2000} className="field resize-none" />
-        </Field>
       </div>
 
       <button

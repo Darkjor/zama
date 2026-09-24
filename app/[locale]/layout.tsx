@@ -10,6 +10,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { RevealObserver } from "@/components/RevealObserver";
+import { ExitIntent } from "@/components/ExitIntent";
 import { ALLOW_INDEXING, SITE_URL } from "@/lib/seo";
 import { mostrarAmenidades, site } from "@/lib/site";
 
@@ -74,13 +75,14 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   // Al navegador solo viajan los textos de los componentes cliente (Header,
-  // LeadForm); el resto se resuelve en el servidor. Si un componente cliente
+  // LeadForm, ExitIntent); el resto se resuelve en el servidor. Si un componente cliente
   // nuevo usa otro namespace, agregarlo aquí.
   const all = await getMessages();
   const { amenidades: waAmenidades, ...whatsapp } = all.whatsapp as Record<string, string>;
   const messages = {
     nav: all.nav,
     form: all.form,
+    exit: all.exit,
     whatsapp: mostrarAmenidades ? { ...whatsapp, amenidades: waAmenidades } : whatsapp,
   };
 
@@ -98,6 +100,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           <Footer />
           <WhatsAppFloat />
           <RevealObserver />
+          <ExitIntent />
         </NextIntlClientProvider>
       </body>
     </html>
