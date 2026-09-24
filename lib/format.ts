@@ -18,3 +18,14 @@ export function formatDate(iso: string, locale: string, withTime = false) {
     ...(withTime ? { timeStyle: "short", timeZone: "America/Cancun" } : {}),
   }).format(date);
 }
+
+/** "$1.6 M" — precio abreviado para titulares. */
+export function formatMXNCompact(value: number, locale: string) {
+  return new Intl.NumberFormat(locale === "en" ? "en-US" : "es-MX", {
+    style: "currency",
+    currency: "MXN",
+    currencyDisplay: "narrowSymbol",
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
+}

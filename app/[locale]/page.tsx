@@ -7,7 +7,7 @@ import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import { disponibilidad, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
-import { formatDate, formatMXN, formatNumber } from "@/lib/format";
+import { formatDate, formatMXN, formatMXNCompact, formatNumber } from "@/lib/format";
 import { SITE_URL } from "@/lib/seo";
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
@@ -17,7 +17,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   return (
     <>
       <JsonLd locale={locale} />
-      <Hero />
+      <Hero locale={locale} />
       <Intro />
       <Vivir />
       <Destino />
@@ -64,9 +64,10 @@ function SectionHead({ eyebrow, title, tone = "dark", className = "" }: { eyebro
 
 /* ------------------------------------------------------------------ */
 
-async function Hero() {
+async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const tw = await getTranslations("whatsapp");
+  const precioEntrada = Math.min(...tipologias.filter((tp) => tp.id !== "villa").map((tp) => tp.priceFrom));
   return (
     <section id="inicio" className="relative isolate overflow-hidden bg-tinta">
       <Image src="/img/laguna.webp" alt="" fill priority sizes="100vw" className="slow-zoom -z-10 object-cover" />
@@ -94,7 +95,14 @@ async function Hero() {
           <h1 className="hero-in display mt-7 text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem]" style={{ animationDelay: "120ms" }}>
             {t("title")} <em className="block text-arena">{t("titleEm")}</em>
           </h1>
-          <p className="hero-in mt-7 max-w-xl text-lg leading-relaxed text-white/85" style={{ animationDelay: "240ms" }}>
+          {/* Precio de entrada visible desde el primer pantallazo: quien deja
+              sus datos ya sabe el rango, lo que filtra leads fuera de presupuesto. */}
+          <p className="hero-in font-ui mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1" style={{ animationDelay: "180ms" }}>
+            <span className="eyebrow text-arena">{t("precioDesde")}</span>
+            <span className="text-4xl font-medium tracking-tight sm:text-5xl">{formatMXNCompact(precioEntrada, locale)}</span>
+            <span className="text-sm font-light text-white/75">{t("precioMxn")}</span>
+          </p>
+          <p className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-white/85" style={{ animationDelay: "240ms" }}>
             {t("body")}
           </p>
           <div className="hero-in mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "360ms" }}>
