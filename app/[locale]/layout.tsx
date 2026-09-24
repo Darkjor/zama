@@ -9,6 +9,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { RevealObserver } from "@/components/RevealObserver";
 import { ALLOW_INDEXING, SITE_URL } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -87,6 +88,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           <main className="flex-1">{children}</main>
           <Footer />
           <WhatsAppFloat />
+          <RevealObserver />
         </NextIntlClientProvider>
       </body>
     </html>

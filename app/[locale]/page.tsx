@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/LeadForm";
 import { Gallery } from "@/components/Gallery";
@@ -127,7 +127,7 @@ async function Intro() {
     <section id="nosotros" className="bg-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-32">
         <div className="reveal relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20 lg:max-w-none">
-          <Image src="/img/fachada-logo.webp" alt={site.name} fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover" />
+          <Image src="/img/fachada-logo.webp" alt={site.name} fill sizes="(min-width: 1024px) 40vw, 90vw" className="reveal-zoom object-cover" />
         </div>
         <div className="reveal">
           <Image src="/brand/iso-cafe.svg" alt="" width={371} height={367} className="size-14" />
@@ -224,7 +224,7 @@ async function Destino() {
           </a>
         </div>
         <div className="reveal relative mx-auto aspect-[1010/1262] w-full max-w-lg overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20">
-          <Image src="/img/mapa.webp" alt={t("mapAlt")} fill sizes="(min-width: 1024px) 36rem, 92vw" className="object-cover" />
+          <Image src="/img/mapa.webp" alt={t("mapAlt")} fill sizes="(min-width: 1024px) 36rem, 92vw" className="reveal-zoom object-cover" />
         </div>
       </div>
     </section>
@@ -246,7 +246,9 @@ async function Galeria() {
       <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead eyebrow={t("eyebrow")} title={<span id="galeria-title">{t("title")}</span>} />
       </div>
-      <Gallery items={items} prev={t("prev")} next={t("next")} />
+      <div className="reveal">
+        <Gallery items={items} prev={t("prev")} next={t("next")} />
+      </div>
       <p className="mx-auto mt-4 max-w-7xl px-4 text-xs text-tinta-soft/70 sm:px-6 lg:px-8">{t("disclaimer")}</p>
     </section>
   );
@@ -313,8 +315,8 @@ async function Inversion() {
             {[
               { title: t("sustentableTitle"), body: t("sustentableBody"), img: "/img/villa-lateral.webp" },
               { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/lifestyle.webp" },
-            ].map((c) => (
-              <article key={c.title} className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white">
+            ].map((c, i) => (
+              <article key={c.title} style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties} className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white">
                 <Image src={c.img} alt="" fill sizes="(min-width: 768px) 40rem, 100vw" className="-z-10 object-cover" />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/5" />
                 <div className="mt-auto p-8 sm:p-10">
@@ -344,10 +346,10 @@ async function Tipologias({ locale }: { locale: string }) {
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <SectionHead eyebrow={t("eyebrow")} title={t("title")} />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {tipologias.map((tp) => {
+          {tipologias.map((tp, i) => {
             const { name, body } = names[tp.id];
             return (
-              <article key={tp.id} className="reveal group flex flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-xl shadow-caoba/10">
+              <article key={tp.id} style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties} className="reveal group flex flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-xl shadow-caoba/10">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image src={tp.image} alt={name} fill sizes="(min-width: 1024px) 26rem, (min-width: 768px) 50vw, 92vw" className="object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
                   <span className="font-ui absolute top-4 left-4 rounded-full bg-crema/95 px-3.5 py-1.5 text-xs font-medium text-caoba">
@@ -422,7 +424,7 @@ async function Disponibilidad({ locale }: { locale: string }) {
           </WaButton>
         </div>
         <div className="reveal relative aspect-[16/11] overflow-hidden rounded-[1.75rem] ring-1 ring-white/10">
-          <Image src="/img/lotes-aereo.webp" alt={t("alt")} fill sizes="(min-width: 1024px) 42rem, 92vw" className="object-cover" />
+          <Image src="/img/lotes-aereo.webp" alt={t("alt")} fill sizes="(min-width: 1024px) 42rem, 92vw" className="reveal-zoom object-cover" />
           <span className="font-ui absolute top-5 right-5 rounded-full bg-crema px-4 py-2 text-xs font-medium tracking-wide text-caoba">{t("fase2")}</span>
         </div>
       </div>
@@ -441,7 +443,7 @@ async function Brokers() {
           <LeadForm variant="broker" className="reveal mt-10 max-w-lg" />
         </div>
         <div className="reveal relative hidden aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20 lg:block">
-          <Image src="/img/muelle.webp" alt={t("alt")} fill sizes="40vw" className="object-cover" />
+          <Image src="/img/muelle.webp" alt={t("alt")} fill sizes="40vw" className="reveal-zoom object-cover" />
         </div>
       </div>
     </section>

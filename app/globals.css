@@ -108,24 +108,29 @@
     color: var(--color-tinta);
   }
 
-  /* Aparición al hacer scroll, solo donde el navegador soporta
-     scroll-driven animations; en el resto el contenido se ve normal. */
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 55%;
-    }
-  }
-}
-
-@keyframes reveal-up {
-  from {
+  /* Aparición al entrar en pantalla. `RevealObserver` agrega `reveal-ready`
+     a <html> y `is-visible` a cada elemento; sin JS nada se oculta.
+     `--reveal-delay` permite escalonar tarjetas hermanas. */
+  .reveal-ready .reveal {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(44px);
+    transition:
+      opacity 900ms var(--ease-out-soft),
+      transform 1100ms var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
   }
-  to {
+  .reveal-ready .reveal.is-visible {
     opacity: 1;
+    transform: none;
+  }
+
+  /* Imágenes: además del ascenso, un zoom suave de 1.12 a 1. */
+  .reveal-ready .reveal .reveal-zoom {
+    transform: scale(1.12);
+    transition: transform 1600ms var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal-ready .reveal.is-visible .reveal-zoom {
     transform: none;
   }
 }
