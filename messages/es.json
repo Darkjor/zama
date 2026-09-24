@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "title": "ZAMÄ Bacalar | Lotes residenciales y Villas Boutique en Bacalar",
+    "description": "Desarrollo residencial ecológico a 400 m de la Laguna de Bacalar. Lotes desde 461.5 m² y Villas Boutique bioclimáticas. Uso de suelo autorizado, MIA y escrituración."
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "destino": "Destino",
+    "inversion": "Inversión",
+    "tipologias": "Tipologías",
+    "disponibilidad": "Disponibilidad",
+    "brokers": "Alianza / Broker",
+    "cta": "Habla con un asesor",
+    "menu": "Abrir menú",
+    "close": "Cerrar menú",
+    "language": "English",
+    "languageShort": "EN"
+  },
+  "hero": {
+    "eyebrow": "Lotes y Villas Boutique",
+    "title": "Una nueva manera de habitar",
+    "titleEm": "Bacalar",
+    "body": "Desarrollo residencial ecológico y sustentable a minutos de la Laguna de los Siete Colores. Diseñado para quienes entienden que elegir dónde vivir también es elegir cómo vivir.",
+    "ctaAsesor": "Asesoría personalizada",
+    "ctaTipologias": "Ver tipologías",
+    "scroll": "Descubre ZAMÄ"
+  },
+  "form": {
+    "titleCotiza": "Cotiza tu lote",
+    "titleBroker": "Déjanos tus datos",
+    "nombre": "Nombre",
+    "telefono": "Teléfono / WhatsApp",
+    "email": "Correo electrónico",
+    "interes": "Me interesa",
+    "interesLote": "Lote residencial",
+    "interesVilla": "Villa Boutique",
+    "interesAmbos": "Aún no lo sé",
+    "mensaje": "Mensaje (opcional)",
+    "empresa": "Inmobiliaria o agencia (opcional)",
+    "enviar": "Enviar",
+    "enviando": "Enviando…",
+    "ok": "¡Gracias! Un asesor te contactará muy pronto.",
+    "okWhatsapp": "Si prefieres, escríbenos ahora por WhatsApp",
+    "error": "No pudimos enviar tu mensaje. Intenta de nuevo o escríbenos por WhatsApp.",
+    "invalid": "Revisa los campos marcados.",
+    "errNombre": "Escribe tu nombre.",
+    "errTelefono": "Escribe un teléfono válido.",
+    "errEmail": "Escribe un correo válido.",
+    "privacy": "Al enviar aceptas nuestro",
+    "privacyLink": "aviso de privacidad"
+  },
+  "intro": {
+    "eyebrow": "ZAMÄ significa amanecer",
+    "title": "Nuevos comienzos, en equilibrio con la naturaleza",
+    "body1": "ZAMÄ BACALAR es un desarrollo residencial ecológico y sustentable conformado por lotes residenciales y Villas Boutique. Inspirado en el significado maya de su nombre, representa nuevos comienzos, equilibrio y una forma de habitar donde la arquitectura acompaña al paisaje.",
+    "body2": "Cada espacio fue pensado para preservar la esencia del lugar mediante diseño bioclimático, materiales locales, vegetación nativa y una planeación responsable.",
+    "by": "Un desarrollo de",
+    "ctaDrive": "Brochure y fichas técnicas",
+    "ctaWhatsapp": "Agenda una presentación"
+  },
+  "destino": {
+    "eyebrow": "Destino",
+    "title": "El privilegio de habitar a minutos de la",
+    "titleEm": "Laguna de los Siete Colores",
+    "body": "Su tranquilidad, su biodiversidad y su autenticidad han convertido a Bacalar en uno de los destinos naturales más admirados de México. Aquí comienza ZAMÄ: no para transformar el lugar, sino para integrarse a él.",
+    "laguna": "{metros} m de la Laguna de Bacalar",
+    "carretera": "{metros} m de la carretera",
+    "biosfera": "Frente a la biosfera African Safari",
+    "mapAlt": "Mapa ilustrado de Quintana Roo con la ubicación de ZAMÄ Bacalar junto a la laguna",
+    "mapsCta": "Ver en Google Maps"
+  },
+  "galeria": {
+    "eyebrow": "Galería",
+    "title": "Arquitectura que acompaña al paisaje",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "g1": "Amaneceres sobre la selva",
+    "g2": "Villa Boutique al atardecer",
+    "g3": "Fachada en piedra y madera",
+    "g4": "Acceso principal de la villa",
+    "g5": "Terrazas con vegetación nativa",
+    "g6": "Planta baja y planta alta",
+    "disclaimer": "*Imágenes ilustrativas sujetas a modificaciones y adaptaciones de proyecto."
+  },
+  "amenidades": {
+    "eyebrow": "Amenidades",
+    "title": "Casa Club",
+    "titleEm": "+ 11 amenidades",
+    "body": "Las amenidades de ZAMÄ fueron diseñadas para convertirse en parte de la rutina. Porque cuando el entorno ya es extraordinario, los espacios que lo acompañan son aquellos que saben respetarlo.",
+    "cta": "Conoce las amenidades con un asesor",
+    "alt": "Terraza de la Casa Club de ZAMÄ con iluminación cálida"
+  },
+  "inversion": {
+    "eyebrow": "Inversión",
+    "title": "¿Por qué invertir en ZAMÄ?",
+    "certezaTitle": "Certeza jurídica",
+    "certezaBody": "Elegir un patrimonio debería generar certeza desde el primer momento.",
+    "certeza1": "Uso de suelo autorizado",
+    "certeza2": "Manifestación de Impacto Ambiental (MIA)",
+    "certeza3": "Escrituración",
+    "certezaCta": "Solicita el pack legal",
+    "sustentableTitle": "Diseño sustentable",
+    "sustentableBody": "Diseño bioclimático, materiales locales, vegetación nativa y una planeación responsable que favorece la convivencia con la naturaleza.",
+    "respaldoTitle": "Respaldo de Mexo Company",
+    "respaldoBody": "Desarrolladora con experiencia creando comunidades que fusionan lujo, naturaleza y certeza jurídica, con procesos que brindan seguridad en cada etapa."
+  },
+  "tipologias": {
+    "eyebrow": "Dos maneras de comenzar",
+    "title": "Tipologías",
+    "desde": "Desde",
+    "terreno": "Terreno",
+    "medidas": "{frente} × {fondo} m",
+    "construccion": "Construcción",
+    "plantas": "PB {baja} m² + PA {alta} m²",
+    "perM2": "{precio} MXN por m²",
+    "cotizar": "Cotizar",
+    "loteAName": "Lote Residencial A",
+    "loteABody": "La base ideal para diseñar tu patrimonio, rodeado de naturaleza y dentro de una comunidad sustentable.",
+    "loteBName": "Lote Residencial B",
+    "loteBBody": "Más frente y más superficie para proyectar la residencia que siempre has imaginado.",
+    "villaName": "Villa Boutique",
+    "villaBody": "Diseñada bajo criterios bioclimáticos: iluminación natural, ventilación cruzada y conexión permanente con el entorno. Lista para disfrutarse desde el primer día.",
+    "note": "Precios en pesos mexicanos, sujetos a cambio sin previo aviso y a disponibilidad."
+  },
+  "disponibilidad": {
+    "eyebrow": "Disponibilidad",
+    "title": "Lotes residenciales ecológicos",
+    "body": "Pregunta a tu asesor por los lotes disponibles, su ubicación dentro del desarrollo y las fichas técnicas de cada uno.",
+    "totales": "Lotes en Fase 1",
+    "vendidos": "Vendidos",
+    "disponibles": "Disponibles",
+    "actualizado": "Actualizado al {fecha}",
+    "fase2": "Fase 2 próximamente",
+    "cta": "Consultar lotes disponibles",
+    "alt": "Vista aérea de los lotes de ZAMÄ Bacalar rodeados de selva"
+  },
+  "brokers": {
+    "eyebrow": "Alianza / Broker",
+    "title": "Únete a nuestra red de aliados",
+    "body": "¿Eres asesor inmobiliario o broker? Obtén la información completa del desarrollo y comercializa ZAMÄ Bacalar con el respaldo de Mexo Company.",
+    "alt": "Laguna de Bacalar en tonos turquesa"
+  },
+  "cta": {
+    "eyebrow": "Da el siguiente paso",
+    "title": "Algunos lugares se descubren. Otros parecen esperarte desde siempre.",
+    "body": "Agenda una presentación privada y descubre por qué el próximo amanecer de tu historia puede comenzar en ZAMÄ Bacalar.",
+    "button": "Agenda tu presentación"
+  },
+  "footer": {
+    "tagline": "Lotes residenciales y Villas Boutique en Bacalar, Quintana Roo.",
+    "navTitle": "Explora",
+    "contactTitle": "Contacto",
+    "drive": "Brochure y documentos",
+    "privacy": "Aviso de privacidad",
+    "disclaimer": "Imágenes ilustrativas sujetas a modificaciones y adaptaciones de proyecto. Precios y disponibilidad sujetos a cambio sin previo aviso.",
+    "rights": "Todos los derechos reservados."
+  },
+  "whatsapp": {
+    "general": "Hola, me interesa ZAMÄ Bacalar y quisiera más información.",
+    "tipologia": "Hola, quisiera cotizar {nombre} en ZAMÄ Bacalar.",
+    "legal": "Hola, me gustaría recibir el pack legal de ZAMÄ Bacalar.",
+    "disponibilidad": "Hola, quisiera conocer los lotes disponibles en ZAMÄ Bacalar.",
+    "amenidades": "Hola, quisiera conocer las amenidades de ZAMÄ Bacalar.",
+    "presentacion": "Hola, me gustaría agendar una presentación de ZAMÄ Bacalar.",
+    "label": "Escríbenos por WhatsApp"
+  },
+  "privacy": {
+    "title": "Aviso de privacidad",
+    "updated": "Última actualización: septiembre de 2026",
+    "p1": "{developer}, desarrolladora de {name}, es responsable del tratamiento de los datos personales que nos proporcionas a través de este sitio.",
+    "h2": "Datos que recabamos",
+    "p2": "Nombre, teléfono, correo electrónico y el mensaje que decidas enviarnos en los formularios de contacto, cotización o alianza. También registramos la página de origen y parámetros de campaña (UTM) para saber cómo nos conociste.",
+    "h3": "Finalidades",
+    "p3": "Usamos tus datos para contactarte, enviarte la información comercial que solicitaste, darte seguimiento como prospecto o aliado comercial y mejorar nuestra comunicación. No vendemos ni compartimos tus datos con terceros ajenos a la comercialización del desarrollo.",
+    "h4": "Derechos ARCO",
+    "p4": "Puedes solicitar el acceso, rectificación, cancelación u oposición al uso de tus datos, o revocar tu consentimiento, escribiéndonos por WhatsApp al {whatsapp}.",
+    "h5": "Cambios a este aviso",
+    "p5": "Cualquier cambio a este aviso se publicará en esta misma página.",
+    "back": "Volver al inicio"
+  },
+  "notFound": {
+    "title": "No encontramos esta página",
+    "body": "Puede que el enlace haya cambiado.",
+    "home": "Ir al inicio"
+  }
+}

@@ -1,0 +1,64 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# herramienta externa (ai-orch CLI), no forma parte del sitio
+/ai-orchestrator
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# orquestación .ai/ y herramientas de agentes: logs y caches locales, no versionados
+.ai/logs/
+.impeccable/
+.superpowers/
+
+# skills de terceros instaladas via `npx skills add` (taste-skill): los symlinks en
+# .claude/skills/ usan rutas absolutas de esta máquina, no portables entre clones.
+# Ver .ai/WHEELS.md para qué se instaló y las reglas de este proyecto sobre su uso.
+/.agents/
+/.claude/skills/
+/skills-lock.json
+
+# git worktrees temporales de subagentes (Claude Code, `isolation: "worktree"`) y su
+# estado local de tareas programadas: checkouts/locks efímeros de esta máquina, nunca
+# parte del repo (ver .ai/ALERTS.md ALERT-008 sobre por qué además hay que excluirlos
+# de eslint/vitest, no solo de git).
+/.claude/worktrees/
+/.claude/scheduled_tasks.lock

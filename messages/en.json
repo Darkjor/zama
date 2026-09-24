@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "title": "ZAMÄ Bacalar | Residential lots and Boutique Villas in Bacalar, Mexico",
+    "description": "Eco-conscious residential community 400 m from Bacalar Lagoon. Lots from 461.5 m² and bioclimatic Boutique Villas. Approved land use, environmental permit (MIA) and deeded title."
+  },
+  "nav": {
+    "inicio": "Home",
+    "destino": "Destination",
+    "inversion": "Investment",
+    "tipologias": "Homes & lots",
+    "disponibilidad": "Availability",
+    "brokers": "Brokers",
+    "cta": "Talk to an advisor",
+    "menu": "Open menu",
+    "close": "Close menu",
+    "language": "Español",
+    "languageShort": "ES"
+  },
+  "hero": {
+    "eyebrow": "Lots & Boutique Villas",
+    "title": "A new way to live in",
+    "titleEm": "Bacalar",
+    "body": "An eco-conscious residential community minutes from the Lagoon of Seven Colors. Designed for people who know that choosing where to live is also choosing how to live.",
+    "ctaAsesor": "Talk to an advisor",
+    "ctaTipologias": "See homes & lots",
+    "scroll": "Discover ZAMÄ"
+  },
+  "form": {
+    "titleCotiza": "Get a quote",
+    "titleBroker": "Tell us about you",
+    "nombre": "Name",
+    "telefono": "Phone / WhatsApp",
+    "email": "Email",
+    "interes": "I'm interested in",
+    "interesLote": "A residential lot",
+    "interesVilla": "A Boutique Villa",
+    "interesAmbos": "Not sure yet",
+    "mensaje": "Message (optional)",
+    "empresa": "Brokerage or agency (optional)",
+    "enviar": "Send",
+    "enviando": "Sending…",
+    "ok": "Thank you! An advisor will reach out shortly.",
+    "okWhatsapp": "Prefer to chat now? Message us on WhatsApp",
+    "error": "We couldn't send your message. Please try again or reach us on WhatsApp.",
+    "invalid": "Please check the highlighted fields.",
+    "errNombre": "Please enter your name.",
+    "errTelefono": "Please enter a valid phone number.",
+    "errEmail": "Please enter a valid email.",
+    "privacy": "By sending, you agree to our",
+    "privacyLink": "privacy notice"
+  },
+  "intro": {
+    "eyebrow": "ZAMÄ means sunrise",
+    "title": "New beginnings, in balance with nature",
+    "body1": "ZAMÄ BACALAR is an eco-conscious, sustainable residential community of residential lots and Boutique Villas. Named after the Mayan word for sunrise, it stands for new beginnings, balance, and a way of living where architecture follows the landscape.",
+    "body2": "Every space is designed to preserve the spirit of the place through bioclimatic design, local materials, native plants, and responsible planning.",
+    "by": "A development by",
+    "ctaDrive": "Brochure & fact sheets",
+    "ctaWhatsapp": "Book a presentation"
+  },
+  "destino": {
+    "eyebrow": "Destination",
+    "title": "The privilege of living minutes from the",
+    "titleEm": "Lagoon of Seven Colors",
+    "body": "Its calm, its biodiversity, and its authenticity have made Bacalar one of Mexico's most admired natural destinations. This is where ZAMÄ begins: not to change the place, but to become part of it.",
+    "laguna": "{metros} m from Bacalar Lagoon",
+    "carretera": "{metros} m from the highway",
+    "biosfera": "Across from the African Safari biosphere",
+    "mapAlt": "Illustrated map of Quintana Roo showing ZAMÄ Bacalar next to the lagoon",
+    "mapsCta": "Open in Google Maps"
+  },
+  "galeria": {
+    "eyebrow": "Gallery",
+    "title": "Architecture that follows the landscape",
+    "prev": "Previous",
+    "next": "Next",
+    "g1": "Sunrise over the jungle",
+    "g2": "Boutique Villa at sunset",
+    "g3": "Stone and wood façade",
+    "g4": "Villa main entrance",
+    "g5": "Terraces with native plants",
+    "g6": "Ground and upper floor plans",
+    "disclaimer": "*Renderings are for illustration only and subject to design changes."
+  },
+  "amenidades": {
+    "eyebrow": "Amenities",
+    "title": "Clubhouse",
+    "titleEm": "+ 11 amenities",
+    "body": "ZAMÄ's amenities are designed to become part of your daily routine. When the setting is already extraordinary, the spaces around it should know how to respect it.",
+    "cta": "Explore the amenities with an advisor",
+    "alt": "ZAMÄ Clubhouse terrace with warm lighting"
+  },
+  "inversion": {
+    "eyebrow": "Investment",
+    "title": "Why invest in ZAMÄ?",
+    "certezaTitle": "Legal certainty",
+    "certezaBody": "Choosing where to build your future should feel certain from day one.",
+    "certeza1": "Approved land use",
+    "certeza2": "Environmental Impact Statement (MIA)",
+    "certeza3": "Deeded title",
+    "certezaCta": "Request the legal pack",
+    "sustentableTitle": "Sustainable design",
+    "sustentableBody": "Bioclimatic design, local materials, native plants, and responsible planning that lets you live alongside nature.",
+    "respaldoTitle": "Backed by Mexo Company",
+    "respaldoBody": "A developer experienced in building communities that bring together luxury, nature, and legal certainty, with processes that protect you at every stage."
+  },
+  "tipologias": {
+    "eyebrow": "Two ways to begin",
+    "title": "Homes & lots",
+    "desde": "From",
+    "terreno": "Lot size",
+    "medidas": "{frente} × {fondo} m",
+    "construccion": "Built area",
+    "plantas": "Ground {baja} m² + upper {alta} m²",
+    "perM2": "{precio} MXN per m²",
+    "cotizar": "Get a quote",
+    "loteAName": "Residential Lot A",
+    "loteABody": "The ideal starting point to design your future home, surrounded by nature within a sustainable community.",
+    "loteBName": "Residential Lot B",
+    "loteBBody": "Wider frontage and more land to design the residence you've always imagined.",
+    "villaName": "Boutique Villa",
+    "villaBody": "Designed around bioclimatic principles: natural light, cross ventilation, and a constant connection with the surroundings. Ready to enjoy from day one.",
+    "note": "Prices in Mexican pesos, subject to change without notice and to availability."
+  },
+  "disponibilidad": {
+    "eyebrow": "Availability",
+    "title": "Eco-conscious residential lots",
+    "body": "Ask your advisor which lots are available, where they sit within the community, and for each lot's fact sheet.",
+    "totales": "Lots in Phase 1",
+    "vendidos": "Sold",
+    "disponibles": "Available",
+    "actualizado": "Updated {fecha}",
+    "fase2": "Phase 2 coming soon",
+    "cta": "Check available lots",
+    "alt": "Aerial view of the ZAMÄ Bacalar lots surrounded by jungle"
+  },
+  "brokers": {
+    "eyebrow": "Brokers",
+    "title": "Join our partner network",
+    "body": "Are you a real estate agent or broker? Get the full development package and sell ZAMÄ Bacalar with the backing of Mexo Company.",
+    "alt": "Turquoise waters of Bacalar Lagoon"
+  },
+  "cta": {
+    "eyebrow": "Take the next step",
+    "title": "Some places you discover. Others seem to have been waiting for you all along.",
+    "body": "Book a private presentation and find out why the next sunrise of your story could begin at ZAMÄ Bacalar.",
+    "button": "Book your presentation"
+  },
+  "footer": {
+    "tagline": "Residential lots and Boutique Villas in Bacalar, Quintana Roo, Mexico.",
+    "navTitle": "Explore",
+    "contactTitle": "Contact",
+    "drive": "Brochure & documents",
+    "privacy": "Privacy notice",
+    "disclaimer": "Renderings are for illustration only and subject to design changes. Prices and availability subject to change without notice.",
+    "rights": "All rights reserved."
+  },
+  "whatsapp": {
+    "general": "Hi, I'm interested in ZAMÄ Bacalar and would like more information.",
+    "tipologia": "Hi, I'd like a quote for the {nombre} at ZAMÄ Bacalar.",
+    "legal": "Hi, I'd like to receive the ZAMÄ Bacalar legal pack.",
+    "disponibilidad": "Hi, I'd like to know which lots are available at ZAMÄ Bacalar.",
+    "amenidades": "Hi, I'd like to learn about the amenities at ZAMÄ Bacalar.",
+    "presentacion": "Hi, I'd like to book a presentation of ZAMÄ Bacalar.",
+    "label": "Message us on WhatsApp"
+  },
+  "privacy": {
+    "title": "Privacy notice",
+    "updated": "Last updated: September 2026",
+    "p1": "{developer}, developer of {name}, is responsible for the personal data you share with us through this website.",
+    "h2": "Data we collect",
+    "p2": "Your name, phone number, email, and any message you send through our contact, quote, or partner forms. We also record the referring page and campaign parameters (UTM) to understand how you found us.",
+    "h3": "How we use it",
+    "p3": "We use your data to contact you, send you the information you requested, follow up with you as a prospective buyer or partner, and improve our communication. We do not sell or share your data with third parties outside the sale of this development.",
+    "h4": "Your rights",
+    "p4": "You can request access to, correction or deletion of your data, object to its use, or withdraw your consent by messaging us on WhatsApp at {whatsapp}.",
+    "h5": "Changes to this notice",
+    "p5": "Any changes to this notice will be posted on this page.",
+    "back": "Back to home"
+  },
+  "notFound": {
+    "title": "We couldn't find this page",
+    "body": "The link may have changed.",
+    "home": "Go home"
+  }
+}
