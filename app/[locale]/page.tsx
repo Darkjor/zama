@@ -427,30 +427,32 @@ async function Disponibilidad({ locale }: { locale: string }) {
     { value: disponibilidad.vendidos, label: t("vendidos") },
     { value: disponibilidad.disponibles, label: t("disponibles"), highlight: true },
   ];
-  // Foto aérea de los lotes a sangre completa: la sección se lee como "esto
-  // es lo que queda", sin repetir el esquema texto + foto de otras secciones.
+  // Verde selva sólido: texto a la izquierda, disponibilidad en su propio
+  // panel a la derecha (en móvil se apilan).
   return (
-    <section id="disponibilidad" className="reveal relative isolate overflow-hidden bg-selva text-white">
-      <Image src="/img/lotes-aereo.webp" alt={t("alt")} fill sizes="100vw" className="reveal-zoom -z-10 object-cover" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-selva via-selva/85 to-selva/40 lg:bg-gradient-to-r lg:from-selva lg:via-selva/85 lg:to-selva/20" />
-      <div className="mx-auto flex min-h-[44rem] max-w-7xl items-end px-4 py-24 sm:px-6 lg:items-center lg:px-8 lg:py-32">
-        <div className="max-w-xl">
+    <section id="disponibilidad" className="bg-selva text-white">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-8 lg:py-32">
+        <div className="reveal">
           <h2 className="display text-4xl sm:text-5xl lg:text-6xl">{t("title")}</h2>
           <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-white/85">{t("body")}</p>
-          <dl className="font-ui mt-10 grid grid-cols-3 divide-x divide-white/20">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse px-4 first:pl-0">
-                <dt className="mt-2 text-sm text-white/80">{s.label}</dt>
-                <dd className={`text-5xl font-light tabular-nums sm:text-6xl ${s.highlight ? "text-agua" : ""}`}>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="font-ui mt-6 text-xs text-white/75">
-            {t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}. {t("fase2")}.
-          </p>
           <WaButton text={tw("disponibilidad")} className="mt-9">
             {t("cta")}
           </WaButton>
+        </div>
+
+        <div style={{ "--reveal-delay": "160ms" } as CSSProperties} className="reveal rounded-[1.75rem] bg-white/[0.05] p-7 ring-1 ring-white/15 sm:p-10">
+          <dl className="font-ui grid grid-cols-3 divide-x divide-white/15">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col-reverse px-3 text-center sm:px-5">
+                <dt className="mt-2 text-sm text-white/80">{s.label}</dt>
+                <dd className={`text-5xl font-light tabular-nums sm:text-6xl lg:text-7xl ${s.highlight ? "text-agua" : ""}`}>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="font-ui mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-xs text-white/75">
+            <p>{t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}</p>
+            <p className="font-medium text-arena">{t("fase2")}</p>
+          </div>
         </div>
       </div>
     </section>
