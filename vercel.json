@@ -3,6 +3,12 @@
   "framework": "nextjs",
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "zama-steel.vercel.app" }],
+      "destination": "https://zamabacalar.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "zama-steel.vercel.app" }],
       "destination": "https://zamabacalar.com/:path*",
