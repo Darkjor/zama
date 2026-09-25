@@ -495,7 +495,8 @@ async function Brokers() {
           <p className="reveal mt-6 max-w-lg text-lg leading-relaxed text-tinta-soft">{t("body")}</p>
           <LeadForm variant="broker" className="reveal mt-10 max-w-lg" />
         </div>
-        <div className="reveal relative hidden aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:block">
+        {/* Misma altura que el bloque de la izquierda (título + formulario): alineada arriba y abajo. */}
+        <div className="reveal relative hidden self-stretch overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:block">
           <Image src="/img/aliados.webp" alt={t("alt")} fill sizes="40vw" className="reveal-zoom object-cover object-[50%_42%]" />
         </div>
       </div>
