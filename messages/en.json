@@ -164,7 +164,10 @@
     "actualizado": "Updated {fecha}",
     "fase2": "Phase 2 coming soon",
     "cta": "Check available lots",
-    "alt": "Aerial view of the ZAMÄ Bacalar lots surrounded by jungle"
+    "alt": "Aerial view of the ZAMÄ Bacalar lots surrounded by jungle",
+    "planAlt": "ZAMÄ Bacalar master plan: lots in blocks 1 to 4, available in green and sold in red",
+    "planNota": "Schematic reference image. For details, see the fact sheets.",
+    "planVer": "View full-size plan"
   },
   "brokers": {
     "title": "Join our partner network",

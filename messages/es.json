@@ -164,7 +164,10 @@
     "actualizado": "Actualizado al {fecha}",
     "fase2": "Fase 2 próximamente",
     "cta": "Consultar lotes disponibles",
-    "alt": "Vista aérea de los lotes de ZAMÄ Bacalar rodeados de selva"
+    "alt": "Vista aérea de los lotes de ZAMÄ Bacalar rodeados de selva",
+    "planAlt": "Master plan de ZAMÄ Bacalar: lotes de las manzanas 1 a 4, en verde los disponibles y en rojo los vendidos",
+    "planNota": "Imagen esquemática de referencia. Para más información, consulta las fichas técnicas.",
+    "planVer": "Ver plano en tamaño completo"
   },
   "brokers": {
     "title": "Únete a nuestra red de aliados",

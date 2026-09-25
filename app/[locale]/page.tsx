@@ -440,7 +440,8 @@ async function Disponibilidad({ locale }: { locale: string }) {
   // panel a la derecha (en móvil se apilan).
   return (
     <section id="disponibilidad" className="bg-selva text-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
         <div className="reveal">
           <h2 className="display text-4xl sm:text-5xl lg:text-6xl">{t("title")}</h2>
           <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-white/85">{t("body")}</p>
@@ -463,6 +464,22 @@ async function Disponibilidad({ locale }: { locale: string }) {
             <p className="font-medium text-arena">{t("fase2")}</p>
           </div>
         </div>
+      </div>
+
+      {/* Master plan: imagen fija del PDF de disponibilidad del cliente (no
+          interactivo por alcance). Se actualiza reemplazando el archivo. */}
+      <figure className="reveal mt-14 lg:mt-20">
+        <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-[1.75rem] ring-1 ring-white/15">
+          <Image src="/img/master-plan.webp" alt={t("planAlt")} width={1998} height={1575} sizes="(min-width: 1280px) 76rem, 100vw" className="h-auto w-full" />
+        </a>
+        <figcaption className="font-ui mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-xs text-white/75">
+          <span>{t("planNota")}</span>
+          <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-arena underline underline-offset-4 hover:text-white">
+            {t("planVer")}
+            <ArrowUpRight className="size-3.5" aria-hidden />
+          </a>
+        </figcaption>
+      </figure>
       </div>
     </section>
   );
