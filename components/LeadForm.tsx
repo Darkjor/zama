@@ -5,7 +5,7 @@
 import { useActionState, useEffect, useId, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle } from "@phosphor-icons/react/ssr";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { sendLead } from "@/lib/leads";
 import type { LeadField, LeadFormState } from "@/lib/lead-schema";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -30,6 +30,7 @@ export function LeadForm({ variant, className = "" }: Props) {
   const uid = useId();
   const [state, action, pending] = useActionState(sendLead, initial);
   const hidden = useRef<Record<string, HTMLInputElement | null>>({});
+  const router = useRouter();
 
   useEffect(() => {
     // Las UTM se guardan en sessionStorage al llegar, para no perderlas si la
@@ -52,8 +53,11 @@ export function LeadForm({ variant, className = "" }: Props) {
     if (state.status !== "success") return;
     try {
       localStorage.setItem(LEAD_SENT_KEY, "1");
+      // La página de gracias solo cuenta la conversión si ve esta marca.
+      sessionStorage.setItem("zama-lead-pendiente", "1");
     } catch {}
-  }, [state.status]);
+    router.push({ pathname: "/gracias", query: { tipo: variant } });
+  }, [state.status, router, variant]);
 
   const errors = state.status === "invalid" ? state.errors : {};
   const values: Record<string, string> = state.status === "invalid" ? state.values : {};

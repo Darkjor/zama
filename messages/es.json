@@ -213,5 +213,16 @@
     "title": "No encontramos esta página",
     "body": "Puede que el enlace haya cambiado.",
     "home": "Ir al inicio"
+  },
+  "gracias": {
+    "metaTitle": "Gracias",
+    "title": "Gracias por tu interés en ZAMÄ",
+    "cotizacion": "Recibimos tus datos. Un asesor te contactará muy pronto por el medio que elegiste para compartirte precios, disponibilidad y resolver tus dudas.",
+    "broker": "Recibimos tus datos. El equipo comercial de Mexo Company te contactará para compartirte la información para aliados.",
+    "brochure": "Aquí tienes el brochure y las fichas técnicas. Un asesor también te escribirá por WhatsApp por si tienes preguntas.",
+    "siguiente": "Mientras tanto",
+    "whatsapp": "Escríbenos por WhatsApp",
+    "drive": "Ver brochure y fichas técnicas",
+    "inicio": "Volver al inicio"
   }
 }

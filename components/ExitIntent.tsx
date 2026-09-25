@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { X } from "@phosphor-icons/react/ssr";
 import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 import { LeadForm, LEAD_SENT_KEY } from "./LeadForm";
 
 const SEEN_KEY = "zama-exit-visto"; // sessionStorage: una vez por visita
@@ -32,14 +33,33 @@ export function ExitIntent() {
   const t = useTranslations("exit");
   const dialog = useRef<HTMLDialogElement>(null);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const onGracias = pathname === "/gracias";
+
+  // El popup vive en el layout: al navegar (p. ej. a /gracias tras enviarlo)
+  // hay que cerrarlo a mano o seguiría abierto sobre la página nueva.
+  useEffect(() => {
+    dialog.current?.close();
+  }, [pathname]);
 
   const open = useCallback(() => {
     const d = dialog.current;
-    if (!d || d.open || blocked()) return;
+    if (!d || d.open || onGracias || blocked()) return;
     store("session")?.setItem(SEEN_KEY, "1");
     setMounted(true);
     d.showModal();
-  }, []);
+  }, [onGracias]);
+
+  // Vista previa para el equipo y el cliente: `?popup=1` borra las marcas que
+  // lo bloquean (ya visto, "no volver a mostrar", ya dejó datos) y lo abre.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("popup") !== "1") return;
+    store("session")?.removeItem(SEEN_KEY);
+    store("local")?.removeItem(NEVER_KEY);
+    store("local")?.removeItem(LEAD_SENT_KEY);
+    const id = window.setTimeout(open, 1000);
+    return () => window.clearTimeout(id);
+  }, [open]);
 
   useEffect(() => {
     if (blocked()) return;

@@ -213,5 +213,16 @@
     "title": "We couldn't find this page",
     "body": "The link may have changed.",
     "home": "Go home"
+  },
+  "gracias": {
+    "metaTitle": "Thank you",
+    "title": "Thank you for your interest in ZAMÄ",
+    "cotizacion": "We received your details. An advisor will reach out shortly through the channel you chose to share pricing, availability, and answer your questions.",
+    "broker": "We received your details. Mexo Company's sales team will reach out with the partner information.",
+    "brochure": "Here are the brochure and fact sheets. An advisor will also message you on WhatsApp in case you have questions.",
+    "siguiente": "In the meantime",
+    "whatsapp": "Message us on WhatsApp",
+    "drive": "View brochure & fact sheets",
+    "inicio": "Back to home"
   }
 }
