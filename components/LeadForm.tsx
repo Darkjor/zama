@@ -68,7 +68,7 @@ export function LeadForm({ variant, className = "" }: Props) {
   if (state.status === "success") {
     return (
       <div className={`rounded-[1.75rem] bg-caoba p-7 text-white shadow-2xl shadow-caoba-deep/30 sm:p-8 ${className}`} role="status">
-        <CheckCircle weight="light" className="mb-4 size-11 text-arena" aria-hidden />
+        <CheckCircle weight="light" className="mb-4 size-11 text-arena max-lg:mx-auto" aria-hidden />
         <p className="display text-3xl">{isBrochure ? t("okBrochure") : t("ok")}</p>
         {isBrochure && (
           <a

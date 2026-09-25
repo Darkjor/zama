@@ -294,7 +294,7 @@ async function Inversion() {
               <ul className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                 {[t("certeza1"), t("certeza2"), t("certeza3")].map((item) => (
                   <li key={item} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
-                    <ShieldCheck weight="light" className="size-7 text-arena" aria-hidden />
+                    <ShieldCheck weight="light" className="size-7 text-arena max-lg:mx-auto" aria-hidden />
                     <p className="font-ui mt-3 text-sm leading-snug text-white">{item}</p>
                   </li>
                 ))}

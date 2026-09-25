@@ -123,7 +123,7 @@ export function ExitIntent() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <Image src="/brand/logo-blanco.svg" alt="" width={983} height={805} className="absolute bottom-8 left-8 h-20 w-auto" />
           </div>
-          <div className="relative p-6 sm:p-9">
+          <div className="m-center relative p-6 sm:p-9">
             <button
               type="button"
               onClick={close}

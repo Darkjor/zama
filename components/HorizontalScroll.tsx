@@ -87,7 +87,7 @@ export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
 
         <div
           ref={track}
-          className={`relative flex items-stretch gap-6 px-4 will-change-transform sm:px-6 lg:gap-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))] ${pinned ? "w-max" : "no-scrollbar snap-x snap-mandatory overflow-x-auto"}`}
+          className={`relative flex items-stretch gap-6 px-4 will-change-transform sm:px-6 lg:gap-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))] ${pinned ? "w-max" : "no-scrollbar snap-x snap-mandatory scroll-px-4 overflow-x-auto sm:scroll-px-6 lg:scroll-px-[max(2rem,calc((100vw-80rem)/2+2rem))]"}`}
         >
           <div className="flex w-[80vw] shrink-0 snap-start flex-col justify-center sm:w-[26rem]">
             <h2 className="display text-5xl sm:text-6xl lg:text-7xl">{title}</h2>

@@ -21,7 +21,7 @@ export default async function PrivacyPage({ params }: PageProps<"/[locale]/aviso
   ] as const;
 
   return (
-    <article className="bg-paper">
+    <article className="m-keep-left bg-paper">
       <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:py-28">
         <h1 className="display text-5xl text-tinta sm:text-6xl">{t("title")}</h1>
         <p className="font-ui mt-4 text-sm text-tinta-soft">{t("updated")}</p>

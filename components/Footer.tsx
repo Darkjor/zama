@@ -14,7 +14,7 @@ export async function Footer() {
   const home = locale === "en" ? "/en" : "/";
 
   return (
-    <footer className="bg-caoba-deep text-white/80">
+    <footer className="m-center bg-caoba-deep text-white/80">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr] lg:px-8">
         <div>
           <Image src="/brand/logo-arena.svg" alt={site.name} width={983} height={805} className="h-24 w-auto" />

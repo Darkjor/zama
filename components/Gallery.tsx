@@ -21,7 +21,7 @@ export function Gallery({ items, prev, next }: { items: Item[]; prev: string; ne
     <div>
       <ul
         ref={track}
-        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-4 pb-2 sm:px-6 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
+        className="no-scrollbar flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto scroll-smooth px-4 pb-2 sm:scroll-px-6 sm:px-6 lg:scroll-px-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
       >
         {items.map((item, i) => (
           <li key={item.src} className="group relative w-[82vw] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[60vw] lg:w-[46rem]">
@@ -41,7 +41,7 @@ export function Gallery({ items, prev, next }: { items: Item[]; prev: string; ne
           </li>
         ))}
       </ul>
-      <div className="mx-auto mt-6 flex max-w-7xl justify-end gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto mt-6 flex max-w-7xl gap-3 px-4 sm:px-6 lg:justify-end lg:px-8">
         {[
           { dir: -1 as const, label: prev, Icon: CaretLeft },
           { dir: 1 as const, label: next, Icon: CaretRight },

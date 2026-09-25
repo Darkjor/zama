@@ -177,3 +177,32 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* ------------------------------------------------------------------ */
+/* Móvil y tablet (una sola columna): todo el contenido centrado.
+   Fuera de @layer a propósito, para ganarle a las utilidades de alineación
+   (justify-between, etc.) solo en este rango. Excepciones:
+   - form: las etiquetas y campos se leen mejor alineados a la izquierda.
+   - .m-keep-left: texto largo (aviso de privacidad).
+   - .justify-end: contenido anclado abajo de su tarjeta (Villa, carrusel). */
+@media (max-width: 1023.98px) {
+  .m-center {
+    text-align: center;
+  }
+  .m-center :is(p, h1, h2, h3, ul, ol, dl, img) {
+    margin-inline: auto;
+  }
+  .m-center .flex:not(.justify-end) {
+    justify-content: center;
+  }
+  .m-center form {
+    text-align: left;
+  }
+  .m-center form h3 {
+    text-align: center;
+  }
+  .m-center .m-keep-left,
+  .m-center .m-keep-left * {
+    text-align: left;
+  }
+}
