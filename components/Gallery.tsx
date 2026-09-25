@@ -30,6 +30,7 @@ export function Gallery({ items, prev, next }: { items: Item[]; prev: string; ne
                 src={item.src}
                 alt={item.caption}
                 fill
+                quality={60}
                 sizes="(min-width: 1024px) 46rem, (min-width: 640px) 60vw, 82vw"
                 className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 loading={i < 2 ? "eager" : "lazy"}

@@ -7,8 +7,15 @@ import createNextIntlPlugin from "next-intl/plugin";
 // acceso a `useTranslations`/`getMessages`.
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
+// Nota: se probó `experimental.inlineCss` y no mejoró Lighthouse (82-84 contra
+// 85-86 sin él), así que se deja el CSS externo, que además se cachea.
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // AVIF pesa ~20-30 % menos que WebP; WebP queda de respaldo.
+    formats: ["image/avif", "image/webp"],
+    // 60 para fotos grandes decorativas, 75 (default) para el resto.
+    qualities: [60, 75],
+  },
 };
 
 export default withNextIntl(nextConfig);

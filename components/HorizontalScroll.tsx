@@ -27,29 +27,42 @@ export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
     const tr = track.current;
     if (!el || !tr) return;
 
-    // Distancia que debe recorrer el track = su ancho menos el viewport. La
-    // sección mide eso + una pantalla, para que el scroll vertical "dure"
-    // exactamente lo que tarda el recorrido horizontal.
+    // Todo lo que depende del layout se mide aquí (al montar y al cambiar
+    // tamaños); en cada cuadro de scroll solo se calcula y se escribe, sin
+    // volver a leer el layout (evita el "reprocesamiento forzado").
+    //
+    // distance: ancho del track menos el viewport. La sección mide eso + una
+    // pantalla, para que el scroll vertical dure lo que el recorrido horizontal.
     let distance = 0;
+    let sectionTop = 0;
+    let vw = window.innerWidth;
+    let cards: { img: HTMLElement; center: number }[] = [];
+    let x = 0; // desplazamiento actual del track
     const measure = () => {
-      distance = Math.max(0, tr.scrollWidth - window.innerWidth);
+      vw = window.innerWidth;
+      distance = Math.max(0, tr.scrollWidth - vw);
+      sectionTop = el.getBoundingClientRect().top + window.scrollY;
+      const base = tr.getBoundingClientRect().left + x; // borde del track sin desplazar
+      cards = Array.from(tr.querySelectorAll<HTMLElement>("[data-parallax]")).map((img) => {
+        const card = img.parentElement!;
+        return { img, center: base + card.offsetLeft + card.offsetWidth / 2 };
+      });
       setHeight(distance + window.innerHeight);
     };
 
     let frame = 0;
     const update = () => {
       frame = 0;
-      const top = el.getBoundingClientRect().top;
-      const progress = Math.min(1, Math.max(0, -top / Math.max(1, distance)));
-      tr.style.transform = `translate3d(${-progress * distance}px,0,0)`;
+      const progress = Math.min(1, Math.max(0, (window.scrollY - sectionTop) / Math.max(1, distance)));
+      x = progress * distance;
+      tr.style.transform = `translate3d(${-x}px,0,0)`;
       // Paralaje: la foto de cada tarjeta se desplaza un poco en sentido
       // contrario al track, así la tarjeta se siente como una ventana.
-      const mid = window.innerWidth / 2;
-      tr.querySelectorAll<HTMLElement>("[data-parallax]").forEach((img) => {
-        const r = img.parentElement!.getBoundingClientRect();
-        const offset = (r.left + r.width / 2 - mid) / window.innerWidth;
-        img.style.transform = `translate3d(${offset * -48}px,0,0) scale(1.12)`;
-      });
+      const mid = vw / 2;
+      for (const c of cards) {
+        const offset = (c.center - x - mid) / vw;
+        c.img.style.transform = `translate3d(${offset * -48}px,0,0) scale(1.12)`;
+      }
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -62,12 +75,12 @@ export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
       update();
     });
     ro.observe(tr);
+    // Si cambia algo arriba (fuentes, imágenes), la sección se mueve: re-medir.
+    ro.observe(document.body);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
     return () => {
       ro.disconnect();
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(frame);
     };
   }, []);
@@ -101,7 +114,7 @@ export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
               style={{ marginTop: i % 2 ? "2.5rem" : 0 }}
             >
               <div data-parallax className="absolute inset-0 -z-10 scale-[1.12] will-change-transform">
-                <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 26rem, 80vw" className="object-cover" />
+                <Image src={c.image} alt="" fill quality={60} sizes="(min-width: 1024px) 26rem, 80vw" className="object-cover" />
               </div>
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d2a1f] via-[#0d2a1f]/55 to-transparent" />
               <div className="p-6 sm:p-7">

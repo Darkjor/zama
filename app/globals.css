@@ -146,15 +146,6 @@
   }
 }
 
-@keyframes slow-zoom {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 .exit-dialog[open] {
   animation: hero-in 450ms var(--ease-out-soft) both;
 }
@@ -165,10 +156,6 @@
 
 .hero-in {
   animation: hero-in 900ms var(--ease-out-soft) both;
-}
-
-.slow-zoom {
-  animation: slow-zoom 2400ms var(--ease-out-soft) both;
 }
 
 .no-scrollbar {

@@ -88,6 +88,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
 
   return (
     <html lang={locale} className={`${cormorant.variable} ${rubik.variable} ${signika.variable} antialiased`}>
+      <head>
+        {/* Activa las animaciones de entrada ANTES del primer render (evita
+            recalcular los estilos de toda la página después). Si el JS de la
+            app no llega a marcar los elementos en 3 s, se muestran todos. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('reveal-ready');setTimeout(function(){if(!window.__zamaReveal){document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('is-visible')})}},3000);",
+          }}
+        />
+      </head>
       <body className="flex min-h-dvh flex-col">
         {GTM_ID && (
           <Script id="gtm" strategy="afterInteractive">

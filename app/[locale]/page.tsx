@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/LeadForm";
@@ -6,6 +6,7 @@ import { Gallery } from "@/components/Gallery";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import { LotPlan } from "@/components/LotPlan";
+import { HeroVideo } from "@/components/HeroVideo";
 import { ArrowUpRight, Car, ShieldCheck, Tree, Waves } from "@phosphor-icons/react/ssr";
 import { disponibilidad, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
@@ -68,34 +69,41 @@ function SectionHead({ eyebrow, title, tone = "dark", className = "" }: { eyebro
 
 /* ------------------------------------------------------------------ */
 
+// Foto del hero con dirección de arte: horizontal en escritorio y un recorte
+// vertical en celular. En celular, la horizontal se estiraba para cubrir el
+// hero y Chrome la contaba "más chica" que el video, que acababa siendo el
+// LCP (a los ~4 s). A su tamaño real, la foto es el LCP desde el primer render.
+function HeroPicture() {
+  const common = { alt: "", sizes: "100vw", quality: 60 };
+  const {
+    props: { srcSet: desktop },
+  } = getImageProps({ ...common, src: "/img/laguna.webp", width: 2200, height: 1650 });
+  const {
+    props: { srcSet: mobile, ...rest },
+  } = getImageProps({ ...common, src: "/img/laguna-movil.webp", width: 1000, height: 1488 });
+  return (
+    <picture>
+      <source media="(min-width: 768px)" srcSet={desktop} sizes="100vw" />
+      <img {...rest} srcSet={mobile} alt="" loading="eager" fetchPriority="high" className="absolute inset-0 -z-10 size-full object-cover" />
+    </picture>
+  );
+}
+
 async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const tw = await getTranslations("whatsapp");
   const precioEntrada = Math.min(...tipologias.filter((tp) => tp.id !== "villa").map((tp) => tp.priceFrom));
   return (
     <section id="inicio" className="relative isolate overflow-hidden bg-tinta">
-      <Image src="/img/laguna.webp" alt="" fill priority sizes="100vw" className="slow-zoom -z-10 object-cover" />
-      {/* Video de Mexo (el mismo del hero de Fuerza Migrante), alojado en
-          /public. La foto de la laguna queda debajo como póster y respaldo si
-          el video no carga o la persona prefiere menos movimiento. */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/img/laguna.webp"
-        aria-hidden
-        className="absolute inset-0 -z-10 size-full object-cover motion-reduce:hidden"
-      >
-        <source src="/video/hero.webm" type="video/webm" />
-      </video>
+      <HeroPicture />
+      {/* Video de Mexo, cargado después del LCP (ver HeroVideo). */}
+      <HeroVideo src="/video/hero.webm" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/40 to-transparent" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pt-16 pb-14 sm:px-6 lg:min-h-[calc(100dvh-4.5rem)] lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:px-8 lg:py-20">
         <div className="text-white">
-          <p className="hero-in eyebrow inline-block rounded-full border border-white/40 px-4 py-2 text-white/90 backdrop-blur-sm">{t("eyebrow")}</p>
+          <p className="hero-in eyebrow inline-block rounded-full border border-white/40 bg-black/20 px-4 py-2 text-white/90">{t("eyebrow")}</p>
           <h1 className="hero-in display mt-7 text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem]" style={{ animationDelay: "120ms" }}>
             {t("title")} <em className="block text-arena">{t("titleEm")}</em>
           </h1>
@@ -117,7 +125,7 @@ async function Hero({ locale }: { locale: string }) {
           </div>
         </div>
         <div className="hero-in w-full max-w-md justify-self-center lg:justify-self-end" style={{ animationDelay: "300ms" }} id="cotiza">
-          <LeadForm variant="cotizacion" className="border border-white/10 bg-caoba/90 backdrop-blur-md" />
+          <LeadForm variant="cotizacion" className="border border-white/10 bg-caoba/95" />
         </div>
       </div>
     </section>
@@ -130,7 +138,7 @@ async function Intro() {
     <section id="nosotros" className="bg-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-32">
         <div className="reveal relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:max-w-none">
-          <Image src="/img/fachada-logo.webp" alt={site.name} fill sizes="(min-width: 1024px) 40vw, 90vw" className="reveal-zoom object-cover" />
+          <Image src="/img/fachada-logo.webp" alt={site.name} fill sizes="(min-width: 1024px) 40vw, min(90vw, 28rem)" className="reveal-zoom object-cover" />
         </div>
         <div className="reveal">
           <Image src="/brand/iso-cafe.svg" alt="" width={371} height={367} className="size-14" />
