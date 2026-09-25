@@ -26,11 +26,11 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <Hero locale={locale} />
       <Intro />
       <Vivir />
+      <Tipologias locale={locale} />
       <Destino />
       <Galeria />
       {mostrarAmenidades && <Amenidades />}
       <Inversion />
-      <Tipologias locale={locale} />
       <Disponibilidad locale={locale} />
       <Brokers />
       <CtaFinal />
