@@ -7,8 +7,11 @@ import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import { LotPlan } from "@/components/LotPlan";
 import { HeroVideo } from "@/components/HeroVideo";
+import { IntroPhases } from "@/components/effects/IntroPhases";
+import { CircleReveal } from "@/components/effects/CircleReveal";
+import { Curtain } from "@/components/effects/Curtain";
 import { ArrowUpRight, Car, ShieldCheck, Tree, Waves } from "@phosphor-icons/react/ssr";
-import { disponibilidad, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
+import { disponibilidad, efectos, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
 import { formatDate, formatMXN, formatMXNCompact, formatNumber } from "@/lib/format";
 import { SITE_URL } from "@/lib/seo";
@@ -67,6 +70,11 @@ function SectionHead({ eyebrow, title, tone = "dark", className = "" }: { eyebro
   );
 }
 
+// Envuelve en la cortina solo si `efectos.cortina` está activo.
+function MaybeCurtain({ children, className }: { children: ReactNode; className?: string }) {
+  return efectos.cortina ? <Curtain className={className}>{children}</Curtain> : <>{children}</>;
+}
+
 /* ------------------------------------------------------------------ */
 
 // Foto del hero con dirección de arte: horizontal en escritorio y un recorte
@@ -119,7 +127,10 @@ async function Hero({ locale }: { locale: string }) {
           </p>
           <div className="hero-in mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "360ms" }}>
             <WaButton text={tw("general")}>{t("ctaAsesor")}</WaButton>
-            <a href="#tipologias" className="font-ui inline-flex items-center justify-center rounded-full border border-white/60 px-6 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white/10">
+            <a
+              href="#tipologias"
+              className="font-ui inline-flex items-center justify-center rounded-full border border-white/60 px-6 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white/10"
+            >
               {t("ctaTipologias")}
             </a>
           </div>
@@ -134,7 +145,18 @@ async function Hero({ locale }: { locale: string }) {
 
 async function Intro() {
   const t = await getTranslations("intro");
-  return (
+  const driveLink = (
+    <a
+      href={site.driveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-ui mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-caoba px-6 py-3.5 text-sm font-medium tracking-wide text-caoba transition-colors hover:bg-caoba hover:text-white active:scale-[0.98]"
+    >
+      {t("ctaDrive")}
+      <ArrowUpRight className="size-4" aria-hidden />
+    </a>
+  );
+  const estatica = (
     <section id="nosotros" className="bg-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-32">
         <div className="reveal relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:max-w-none">
@@ -161,6 +183,25 @@ async function Intro() {
       </div>
     </section>
   );
+  if (!efectos.introFases) return estatica;
+  return (
+    <IntroPhases
+      image="/img/amanecer.webp"
+      eyebrow={t("fase1")}
+      title={t("title")}
+      body1={t("body1")}
+      body2={
+        <>
+          <p className="text-lg leading-relaxed text-tinta-soft">{t("body2")}</p>
+          <p className="font-ui mt-6 text-sm text-tinta-soft">
+            {t("by")} <strong className="font-medium text-caoba">{site.developer}</strong>
+          </p>
+          {driveLink}
+        </>
+      }
+      fallback={estatica}
+    />
+  );
 }
 
 // Alternativa a la Galería inspirada en mantustulum.com (scroll horizontal
@@ -182,14 +223,7 @@ async function Vivir() {
     })
     // La tarjeta 4 es "Casa Club + 11 amenidades".
     .filter((c) => mostrarAmenidades || c.n !== 4);
-  return (
-    <HorizontalScroll
-      title={t("title")}
-      watermark={site.name}
-      cards={cards}
-      cta={<WaButton text={tw("general")}>{t("cta")}</WaButton>}
-    />
-  );
+  return <HorizontalScroll title={t("title")} watermark={site.name} cards={cards} cta={<WaButton text={tw("general")}>{t("cta")}</WaButton>} />;
 }
 
 async function Destino() {
@@ -282,33 +316,56 @@ async function Amenidades() {
 async function Inversion() {
   const t = await getTranslations("inversion");
   const tw = await getTranslations("whatsapp");
+  const certezaItems = [t("certeza1"), t("certeza2"), t("certeza3")];
+  const certezaCard = (
+    <article className="reveal relative isolate overflow-hidden rounded-[1.75rem] bg-tinta text-white">
+      <Image src="/img/interior.webp" alt="" fill sizes="(min-width: 1280px) 80rem, 100vw" className="-z-10 object-cover opacity-55" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
+      <div className="grid gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:p-14">
+        <div>
+          <h3 className="display text-4xl text-arena sm:text-5xl">{t("certezaTitle")}</h3>
+          <p className="mt-4 max-w-md text-lg text-white/85">{t("certezaBody")}</p>
+          <WaButton text={tw("legal")} className="mt-8">
+            {t("certezaCta")}
+          </WaButton>
+        </div>
+        <ul className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+          {certezaItems.map((item) => (
+            <li key={item} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
+              <ShieldCheck weight="light" className="size-7 text-arena max-lg:mx-auto" aria-hidden />
+              <p className="font-ui mt-3 text-sm leading-snug text-white">{item}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
   return (
     <section id="inversion" className="bg-paper">
-      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8 lg:pt-32">
         <SectionHead title={t("title")} className="text-center" />
+      </div>
 
+      {efectos.reveladoCircular && (
+        <CircleReveal image="/img/interior.webp" title={t("certezaTitle")} fallback={<div className="mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">{certezaCard}</div>}>
+          <p className="mx-auto max-w-xl text-lg text-white/85">{t("certezaBody")}</p>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+            {certezaItems.map((item) => (
+              <li key={item} className="rounded-2xl border border-white/20 bg-white/10 p-5">
+                <ShieldCheck weight="light" className="mx-auto size-7 text-arena" aria-hidden />
+                <p className="font-ui mt-3 text-sm leading-snug text-white">{item}</p>
+              </li>
+            ))}
+          </ul>
+          <WaButton text={tw("legal")} className="mt-8">
+            {t("certezaCta")}
+          </WaButton>
+        </CircleReveal>
+      )}
+
+      <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
         <div className="mt-14 grid gap-5">
-          <article className="reveal relative isolate overflow-hidden rounded-[1.75rem] bg-tinta text-white">
-            <Image src="/img/interior.webp" alt="" fill sizes="(min-width: 1280px) 80rem, 100vw" className="-z-10 object-cover opacity-55" />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
-            <div className="grid gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:p-14">
-              <div>
-                <h3 className="display text-4xl text-arena sm:text-5xl">{t("certezaTitle")}</h3>
-                <p className="mt-4 max-w-md text-lg text-white/85">{t("certezaBody")}</p>
-                <WaButton text={tw("legal")} className="mt-8">
-                  {t("certezaCta")}
-                </WaButton>
-              </div>
-              <ul className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                {[t("certeza1"), t("certeza2"), t("certeza3")].map((item) => (
-                  <li key={item} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
-                    <ShieldCheck weight="light" className="size-7 text-arena max-lg:mx-auto" aria-hidden />
-                    <p className="font-ui mt-3 text-sm leading-snug text-white">{item}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
+          {!efectos.reveladoCircular && certezaCard}
 
           <div className="grid gap-5 md:grid-cols-2">
             {[
@@ -316,7 +373,11 @@ async function Inversion() {
               // Firma de contrato: se encuadra hacia la mano y la pluma.
               { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/respaldo.webp", pos: "object-[68%_50%]" },
             ].map((c, i) => (
-              <article key={c.title} style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties} className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white">
+              <article
+                key={c.title}
+                style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties}
+                className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white"
+              >
                 <Image src={c.img} alt="" fill sizes="(min-width: 768px) 40rem, 100vw" className={`-z-10 object-cover ${c.pos}`} />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/5" />
                 <div className="mt-auto p-8 sm:p-10">
@@ -390,36 +451,38 @@ async function Tipologias({ locale }: { locale: string }) {
 
           {/* Villa: pieza protagonista, con foto y construcción por planta. */}
           {villa?.plantas && (
-            <article
-              style={{ "--reveal-delay": "280ms" } as CSSProperties}
-              className="reveal relative isolate flex min-h-[34rem] flex-col justify-end overflow-hidden rounded-[1.75rem] bg-tinta text-white"
-            >
-              <Image src={villa.image} alt={names.villa.name} fill sizes="(min-width: 1024px) 38rem, 92vw" className="reveal-zoom -z-10 object-cover" />
-              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/45 to-black/0" />
-              <div className="p-7 sm:p-10">
-                <h3 className="display text-4xl sm:text-5xl">{names.villa.name}</h3>
-                <p className="mt-3 max-w-[46ch] leading-relaxed text-white/85">{names.villa.body}</p>
-                <dl className="font-ui mt-7 grid max-w-sm grid-cols-2 gap-6 border-t border-white/20 pt-5">
-                  <div>
-                    <dt className="text-xs text-white/75">{t("plantaBaja")}</dt>
-                    <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.baja} m²</dd>
+            <MaybeCurtain className="rounded-[1.75rem]">
+              <article
+                style={{ "--reveal-delay": "280ms" } as CSSProperties}
+                className={`${efectos.cortina ? "" : "reveal"} relative isolate flex h-full min-h-[34rem] flex-col justify-end overflow-hidden rounded-[1.75rem] bg-tinta text-white`}
+              >
+                <Image src={villa.image} alt={names.villa.name} fill sizes="(min-width: 1024px) 38rem, 92vw" className="reveal-zoom -z-10 object-cover" />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/45 to-black/0" />
+                <div className="p-7 sm:p-10">
+                  <h3 className="display text-4xl sm:text-5xl">{names.villa.name}</h3>
+                  <p className="mt-3 max-w-[46ch] leading-relaxed text-white/85">{names.villa.body}</p>
+                  <dl className="font-ui mt-7 grid max-w-sm grid-cols-2 gap-6 border-t border-white/20 pt-5">
+                    <div>
+                      <dt className="text-xs text-white/75">{t("plantaBaja")}</dt>
+                      <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.baja} m²</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs text-white/75">{t("plantaAlta")}</dt>
+                      <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.alta} m²</dd>
+                    </div>
+                  </dl>
+                  <div className="mt-7 flex flex-wrap items-end justify-between gap-4">
+                    <div>
+                      <p className="font-ui text-xs text-white/75">{t("desde")}</p>
+                      <p className="font-ui text-3xl font-medium tabular-nums">
+                        {formatMXN(villa.priceFrom, locale)} <span className="text-sm font-light text-white/75">MXN</span>
+                      </p>
+                    </div>
+                    <WaButton text={tw("tipologia", { nombre: names.villa.name })}>{t("cotizar")}</WaButton>
                   </div>
-                  <div>
-                    <dt className="text-xs text-white/75">{t("plantaAlta")}</dt>
-                    <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.alta} m²</dd>
-                  </div>
-                </dl>
-                <div className="mt-7 flex flex-wrap items-end justify-between gap-4">
-                  <div>
-                    <p className="font-ui text-xs text-white/75">{t("desde")}</p>
-                    <p className="font-ui text-3xl font-medium tabular-nums">
-                      {formatMXN(villa.priceFrom, locale)} <span className="text-sm font-light text-white/75">MXN</span>
-                    </p>
-                  </div>
-                  <WaButton text={tw("tipologia", { nombre: names.villa.name })}>{t("cotizar")}</WaButton>
                 </div>
-              </div>
-            </article>
+              </article>
+            </MaybeCurtain>
           )}
         </div>
         <p className="mt-6 text-xs text-tinta-soft">{t("note")}</p>
@@ -441,45 +504,47 @@ async function Disponibilidad({ locale }: { locale: string }) {
   return (
     <section id="disponibilidad" className="bg-selva text-white">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-      <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
-        <div className="reveal">
-          <h2 className="display text-4xl sm:text-5xl lg:text-6xl">{t("title")}</h2>
-          <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-white/85">{t("body")}</p>
-          <WaButton text={tw("disponibilidad")} className="mt-9">
-            {t("cta")}
-          </WaButton>
-        </div>
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
+          <div className="reveal">
+            <h2 className="display text-4xl sm:text-5xl lg:text-6xl">{t("title")}</h2>
+            <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-white/85">{t("body")}</p>
+            <WaButton text={tw("disponibilidad")} className="mt-9">
+              {t("cta")}
+            </WaButton>
+          </div>
 
-        <div style={{ "--reveal-delay": "160ms" } as CSSProperties} className="reveal rounded-[1.75rem] bg-white/[0.05] p-7 ring-1 ring-white/15 sm:p-10">
-          <dl className="font-ui grid grid-cols-3 divide-x divide-white/15">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse px-3 text-center sm:px-5">
-                <dt className="mt-2 text-sm text-white/80">{s.label}</dt>
-                <dd className={`text-5xl font-light tabular-nums sm:text-6xl lg:text-7xl ${s.highlight ? "text-agua" : ""}`}>{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="font-ui mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-xs text-white/75">
-            <p>{t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}</p>
-            <p className="font-medium text-arena">{t("fase2")}</p>
+          <div style={{ "--reveal-delay": "160ms" } as CSSProperties} className="reveal rounded-[1.75rem] bg-white/[0.05] p-7 ring-1 ring-white/15 sm:p-10">
+            <dl className="font-ui grid grid-cols-3 divide-x divide-white/15">
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col-reverse px-3 text-center sm:px-5">
+                  <dt className="mt-2 text-sm text-white/80">{s.label}</dt>
+                  <dd className={`text-5xl font-light tabular-nums sm:text-6xl lg:text-7xl ${s.highlight ? "text-agua" : ""}`}>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="font-ui mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-white/15 pt-6 text-xs text-white/75">
+              <p>{t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}</p>
+              <p className="font-medium text-arena">{t("fase2")}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Master plan: imagen fija del PDF de disponibilidad del cliente (no
+        {/* Master plan: imagen fija del PDF de disponibilidad del cliente (no
           interactivo por alcance). Se actualiza reemplazando el archivo. */}
-      <figure className="reveal mt-14 lg:mt-20">
-        <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-[1.75rem] ring-1 ring-white/15">
-          <Image src="/img/master-plan.webp" alt={t("planAlt")} width={1998} height={1575} sizes="(min-width: 1280px) 76rem, 100vw" className="h-auto w-full" />
-        </a>
-        <figcaption className="font-ui mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-xs text-white/75">
-          <span>{t("planNota")}</span>
-          <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-arena underline underline-offset-4 hover:text-white">
-            {t("planVer")}
-            <ArrowUpRight className="size-3.5" aria-hidden />
-          </a>
-        </figcaption>
-      </figure>
+        <figure className={`${efectos.cortina ? "" : "reveal"} mt-14 lg:mt-20`}>
+          <MaybeCurtain className="rounded-[1.75rem]">
+            <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-[1.75rem] ring-1 ring-white/15">
+              <Image src="/img/master-plan.webp" alt={t("planAlt")} width={1998} height={1575} sizes="(min-width: 1280px) 76rem, 100vw" className="h-auto w-full" />
+            </a>
+          </MaybeCurtain>
+          <figcaption className="font-ui mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-xs text-white/75">
+            <span>{t("planNota")}</span>
+            <a href="/img/master-plan.webp" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-arena underline underline-offset-4 hover:text-white">
+              {t("planVer")}
+              <ArrowUpRight className="size-3.5" aria-hidden />
+            </a>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

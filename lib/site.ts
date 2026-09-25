@@ -36,6 +36,20 @@ export const site = {
  */
 export const mostrarAmenidades = false;
 
+/**
+ * Efectos de scroll inspirados en mantustulum.com/nosotros. Cada uno se
+ * apaga con `false` y la sección vuelve a su versión estática. Con
+ * "movimiento reducido" activado en el dispositivo nunca se ejecutan.
+ */
+export const efectos = {
+  /** Intro fija: la foto de la fachada se queda y los textos entran por fases. */
+  introFases: true,
+  /** "Certeza jurídica": la foto se abre desde un círculo hasta llenar la pantalla. */
+  reveladoCircular: true,
+  /** Barra color caoba que barre y descubre la Villa y el master plan. */
+  cortina: true,
+};
+
 export const pricePerM2 = 3470;
 
 export type Tipologia = {
