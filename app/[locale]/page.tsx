@@ -304,11 +304,12 @@ async function Inversion() {
 
           <div className="grid gap-5 md:grid-cols-2">
             {[
-              { title: t("sustentableTitle"), body: t("sustentableBody"), img: "/img/villa-lateral.webp" },
-              { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/lifestyle.webp" },
+              { title: t("sustentableTitle"), body: t("sustentableBody"), img: "/img/villa-lateral.webp", pos: "object-center" },
+              // Firma de contrato: se encuadra hacia la mano y la pluma.
+              { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/respaldo.webp", pos: "object-[68%_50%]" },
             ].map((c, i) => (
               <article key={c.title} style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties} className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white">
-                <Image src={c.img} alt="" fill sizes="(min-width: 768px) 40rem, 100vw" className="-z-10 object-cover" />
+                <Image src={c.img} alt="" fill sizes="(min-width: 768px) 40rem, 100vw" className={`-z-10 object-cover ${c.pos}`} />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/5" />
                 <div className="mt-auto p-8 sm:p-10">
                   <h3 className="display text-3xl text-arena sm:text-4xl">{c.title}</h3>
