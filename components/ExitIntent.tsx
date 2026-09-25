@@ -4,6 +4,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { X } from "@phosphor-icons/react/ssr";
 import { useTranslations } from "next-intl";
 import { LeadForm, LEAD_SENT_KEY } from "./LeadForm";
 
@@ -109,9 +110,7 @@ export function ExitIntent() {
               aria-label={t("close")}
               className="absolute top-3 right-3 inline-flex size-11 items-center justify-center rounded-full text-tinta-soft hover:bg-arena/60 hover:text-tinta"
             >
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
+              <X className="size-5" aria-hidden />
             </button>
             <p className="eyebrow text-terracota">{t("eyebrow")}</p>
             <h2 id="exit-title" className="display mt-3 pr-8 text-4xl">

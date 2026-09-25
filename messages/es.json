@@ -22,8 +22,8 @@
     "titleEm": "Bacalar",
     "precioDesde": "Lotes desde",
     "precioMxn": "MXN",
-    "body": "Desarrollo residencial ecológico y sustentable a minutos de la Laguna de los Siete Colores. Diseñado para quienes entienden que elegir dónde vivir también es elegir cómo vivir.",
-    "ctaAsesor": "Asesoría personalizada",
+    "body": "Lotes ecológicos y Villas Boutique a minutos de la Laguna de los Siete Colores.",
+    "ctaAsesor": "Habla con un asesor",
     "ctaTipologias": "Ver tipologías",
     "scroll": "Descubre ZAMÄ"
   },
@@ -52,7 +52,12 @@
     "privacyLink": "aviso de privacidad",
     "titleBrochure": "Recibe el brochure",
     "okBrochure": "¡Listo! Aquí tienes el brochure y las fichas técnicas.",
-    "abrirBrochure": "Abrir brochure"
+    "abrirBrochure": "Abrir brochure",
+    "preferencia": "¿Cómo prefieres que te contactemos?",
+    "prefWhatsapp": "WhatsApp",
+    "prefLlamada": "Llamada",
+    "prefCorreo": "Correo",
+    "errEmailRequerido": "Escribe tu correo para contactarte por ahí."
   },
   "exit": {
     "eyebrow": "Antes de irte",
@@ -62,18 +67,14 @@
     "noMostrar": "No volver a mostrar"
   },
   "intro": {
-    "eyebrow": "ZAMÄ significa amanecer",
     "title": "Nuevos comienzos, en equilibrio con la naturaleza",
     "body1": "ZAMÄ BACALAR es un desarrollo residencial ecológico y sustentable conformado por lotes residenciales y Villas Boutique. Inspirado en el significado maya de su nombre, representa nuevos comienzos, equilibrio y una forma de habitar donde la arquitectura acompaña al paisaje.",
     "body2": "Cada espacio fue pensado para preservar la esencia del lugar mediante diseño bioclimático, materiales locales, vegetación nativa y una planeación responsable.",
     "by": "Un desarrollo de",
-    "ctaDrive": "Brochure y fichas técnicas",
-    "ctaWhatsapp": "Agenda una presentación"
+    "ctaDrive": "Brochure y fichas técnicas"
   },
   "vivir": {
-    "eyebrow": "Conexión y bienestar",
     "title": "Vivir en ZAMÄ",
-    "hint": "Desliza para descubrir",
     "c1Tag": "Naturaleza",
     "c1Title": "A 400 m de la Laguna de los Siete Colores",
     "c1Body": "Uno de los destinos naturales más admirados de México, a minutos de tu puerta.",
@@ -106,7 +107,6 @@
     "mapsCta": "Ver en Google Maps"
   },
   "galeria": {
-    "eyebrow": "Galería",
     "title": "Arquitectura que acompaña al paisaje",
     "prev": "Anterior",
     "next": "Siguiente",
@@ -119,7 +119,6 @@
     "disclaimer": "*Imágenes ilustrativas sujetas a modificaciones y adaptaciones de proyecto."
   },
   "amenidades": {
-    "eyebrow": "Amenidades",
     "title": "Casa Club",
     "titleEm": "+ 11 amenidades",
     "body": "Las amenidades de ZAMÄ fueron diseñadas para convertirse en parte de la rutina. Porque cuando el entorno ya es extraordinario, los espacios que lo acompañan son aquellos que saben respetarlo.",
@@ -127,7 +126,6 @@
     "alt": "Terraza de la Casa Club de ZAMÄ con iluminación cálida"
   },
   "inversion": {
-    "eyebrow": "Inversión",
     "title": "¿Por qué invertir en ZAMÄ?",
     "certezaTitle": "Certeza jurídica",
     "certezaBody": "Elegir un patrimonio debería generar certeza desde el primer momento.",
@@ -144,10 +142,7 @@
     "eyebrow": "Dos maneras de comenzar",
     "title": "Tipologías",
     "desde": "Desde",
-    "terreno": "Terreno",
     "medidas": "{frente} × {fondo} m",
-    "construccion": "Construcción",
-    "plantas": "PB {baja} m² + PA {alta} m²",
     "perM2": "{precio} MXN por m²",
     "cotizar": "Cotizar",
     "loteAName": "Lote Residencial A",
@@ -156,10 +151,11 @@
     "loteBBody": "Más frente y más superficie para proyectar la residencia que siempre has imaginado.",
     "villaName": "Villa Boutique",
     "villaBody": "Diseñada bajo criterios bioclimáticos: iluminación natural, ventilación cruzada y conexión permanente con el entorno. Lista para disfrutarse desde el primer día.",
-    "note": "Precios en pesos mexicanos, sujetos a cambio sin previo aviso y a disponibilidad."
+    "note": "Precios en pesos mexicanos, sujetos a cambio sin previo aviso y a disponibilidad.",
+    "plantaBaja": "Planta baja",
+    "plantaAlta": "Planta alta"
   },
   "disponibilidad": {
-    "eyebrow": "Disponibilidad",
     "title": "Lotes residenciales ecológicos",
     "body": "Pregunta a tu asesor por los lotes disponibles, su ubicación dentro del desarrollo y las fichas técnicas de cada uno.",
     "totales": "Lotes en Fase 1",
@@ -171,7 +167,6 @@
     "alt": "Vista aérea de los lotes de ZAMÄ Bacalar rodeados de selva"
   },
   "brokers": {
-    "eyebrow": "Alianza / Broker",
     "title": "Únete a nuestra red de aliados",
     "body": "¿Eres asesor inmobiliario o broker? Obtén la información completa del desarrollo y comercializa ZAMÄ Bacalar con el respaldo de Mexo Company.",
     "alt": "Laguna de Bacalar en tonos turquesa"

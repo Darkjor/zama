@@ -7,7 +7,7 @@ export async function GET(request: Request) {
 
   let query = supabase
     .from("leads")
-    .select("created_at, tipo, nombre, telefono, email, interes, mensaje, locale, utm_source, utm_medium, utm_campaign, referrer")
+    .select("created_at, tipo, nombre, telefono, email, contacto_preferido, interes, mensaje, locale, utm_source, utm_medium, utm_campaign, referrer")
     .order("created_at", { ascending: false })
     .limit(10000);
   if (isTipo(tipo)) query = query.eq("tipo", tipo);

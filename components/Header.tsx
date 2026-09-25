@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { List, X } from "@phosphor-icons/react/ssr";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { site } from "@/lib/site";
@@ -76,9 +77,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
           >
-            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
+            <List className="size-6" aria-hidden />
           </button>
         </div>
       </div>
@@ -97,9 +96,7 @@ export function Header() {
             className="-mr-2 inline-flex size-11 items-center justify-center rounded-full"
             aria-label={t("close")}
           >
-            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
+            <X className="size-6" aria-hidden />
           </button>
         </div>
         <nav aria-label="Móvil" className="flex flex-1 flex-col justify-center gap-2 px-8">

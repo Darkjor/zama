@@ -22,7 +22,7 @@
     "titleEm": "Bacalar",
     "precioDesde": "Lots from",
     "precioMxn": "MXN",
-    "body": "An eco-conscious residential community minutes from the Lagoon of Seven Colors. Designed for people who know that choosing where to live is also choosing how to live.",
+    "body": "Eco-conscious lots and Boutique Villas minutes from the Lagoon of Seven Colors.",
     "ctaAsesor": "Talk to an advisor",
     "ctaTipologias": "See homes & lots",
     "scroll": "Discover ZAMÄ"
@@ -52,7 +52,12 @@
     "privacyLink": "privacy notice",
     "titleBrochure": "Get the brochure",
     "okBrochure": "All set! Here's the brochure and fact sheets.",
-    "abrirBrochure": "Open brochure"
+    "abrirBrochure": "Open brochure",
+    "preferencia": "How should we reach you?",
+    "prefWhatsapp": "WhatsApp",
+    "prefLlamada": "Phone call",
+    "prefCorreo": "Email",
+    "errEmailRequerido": "Add your email so we can reach you there."
   },
   "exit": {
     "eyebrow": "Before you go",
@@ -62,18 +67,14 @@
     "noMostrar": "Don't show again"
   },
   "intro": {
-    "eyebrow": "ZAMÄ means sunrise",
     "title": "New beginnings, in balance with nature",
     "body1": "ZAMÄ BACALAR is an eco-conscious, sustainable residential community of residential lots and Boutique Villas. Named after the Mayan word for sunrise, it stands for new beginnings, balance, and a way of living where architecture follows the landscape.",
     "body2": "Every space is designed to preserve the spirit of the place through bioclimatic design, local materials, native plants, and responsible planning.",
     "by": "A development by",
-    "ctaDrive": "Brochure & fact sheets",
-    "ctaWhatsapp": "Book a presentation"
+    "ctaDrive": "Brochure & fact sheets"
   },
   "vivir": {
-    "eyebrow": "Connection & wellbeing",
     "title": "Life at ZAMÄ",
-    "hint": "Scroll to explore",
     "c1Tag": "Nature",
     "c1Title": "400 m from the Lagoon of Seven Colors",
     "c1Body": "One of Mexico's most admired natural destinations, minutes from your door.",
@@ -106,7 +107,6 @@
     "mapsCta": "Open in Google Maps"
   },
   "galeria": {
-    "eyebrow": "Gallery",
     "title": "Architecture that follows the landscape",
     "prev": "Previous",
     "next": "Next",
@@ -119,7 +119,6 @@
     "disclaimer": "*Renderings are for illustration only and subject to design changes."
   },
   "amenidades": {
-    "eyebrow": "Amenities",
     "title": "Clubhouse",
     "titleEm": "+ 11 amenities",
     "body": "ZAMÄ's amenities are designed to become part of your daily routine. When the setting is already extraordinary, the spaces around it should know how to respect it.",
@@ -127,7 +126,6 @@
     "alt": "ZAMÄ Clubhouse terrace with warm lighting"
   },
   "inversion": {
-    "eyebrow": "Investment",
     "title": "Why invest in ZAMÄ?",
     "certezaTitle": "Legal certainty",
     "certezaBody": "Choosing where to build your future should feel certain from day one.",
@@ -144,10 +142,7 @@
     "eyebrow": "Two ways to begin",
     "title": "Homes & lots",
     "desde": "From",
-    "terreno": "Lot size",
     "medidas": "{frente} × {fondo} m",
-    "construccion": "Built area",
-    "plantas": "Ground {baja} m² + upper {alta} m²",
     "perM2": "{precio} MXN per m²",
     "cotizar": "Get a quote",
     "loteAName": "Residential Lot A",
@@ -156,10 +151,11 @@
     "loteBBody": "Wider frontage and more land to design the residence you've always imagined.",
     "villaName": "Boutique Villa",
     "villaBody": "Designed around bioclimatic principles: natural light, cross ventilation, and a constant connection with the surroundings. Ready to enjoy from day one.",
-    "note": "Prices in Mexican pesos, subject to change without notice and to availability."
+    "note": "Prices in Mexican pesos, subject to change without notice and to availability.",
+    "plantaBaja": "Ground floor",
+    "plantaAlta": "Upper floor"
   },
   "disponibilidad": {
-    "eyebrow": "Availability",
     "title": "Eco-conscious residential lots",
     "body": "Ask your advisor which lots are available, where they sit within the community, and for each lot's fact sheet.",
     "totales": "Lots in Phase 1",
@@ -171,7 +167,6 @@
     "alt": "Aerial view of the ZAMÄ Bacalar lots surrounded by jungle"
   },
   "brokers": {
-    "eyebrow": "Brokers",
     "title": "Join our partner network",
     "body": "Are you a real estate agent or broker? Get the full development package and sell ZAMÄ Bacalar with the backing of Mexo Company.",
     "alt": "Turquoise waters of Bacalar Lagoon"

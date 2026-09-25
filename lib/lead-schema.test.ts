@@ -28,6 +28,13 @@ describe("leadSchema", () => {
     expect(r.data?.mensaje).toBe("[Casa MX] Hola");
   });
 
+  it("guarda la preferencia de contacto válida y descarta valores inventados", () => {
+    const ok = leadSchema.safeParse(form({ tipo: "cotizacion", nombre: "Ana", telefono: "5512345678", contacto_preferido: "llamada" }));
+    expect(ok.data?.contacto_preferido).toBe("llamada");
+    const raro = leadSchema.safeParse(form({ tipo: "cotizacion", nombre: "Ana", telefono: "5512345678", contacto_preferido: "fax" }));
+    expect(raro.data?.contacto_preferido).toBeNull();
+  });
+
   it("cae a 'es' con un locale desconocido", () => {
     const r = leadSchema.safeParse(form({ tipo: "contacto", nombre: "Luis", telefono: "5512345678", locale: "fr" }));
     expect(r.data?.locale).toBe("es");

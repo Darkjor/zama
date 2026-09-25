@@ -24,12 +24,20 @@ export const leadSchema = z.object({
     .refine((v) => v === "" || z.email().safeParse(v).success, "errEmail")
     .transform((v) => (v === "" ? null : v)),
   interes: optional(60),
+  contacto_preferido: z
+    .enum(["whatsapp", "llamada", "correo", ""])
+    .catch("")
+    .transform((v) => (v === "" ? null : v)),
   mensaje: optional(2000),
   locale: z.enum(["es", "en"]).catch("es"),
   utm_source: optional(120),
   utm_medium: optional(120),
   utm_campaign: optional(120),
   referrer: optional(500),
+}).superRefine((lead, ctx) => {
+  if (lead.contacto_preferido === "correo" && !lead.email) {
+    ctx.addIssue({ code: "custom", path: ["email"], message: "errEmailRequerido" });
+  }
 });
 
 export type LeadField = "nombre" | "telefono" | "email";
@@ -50,6 +58,7 @@ export function readLeadForm(formData: FormData) {
     telefono: get("telefono"),
     email: get("email"),
     interes: get("interes"),
+    contacto_preferido: get("contacto_preferido"),
     // El formulario de brokers pide la inmobiliaria aparte; se guarda al
     // inicio del mensaje para no añadir una columna solo para eso.
     mensaje: empresa ? `[${empresa}] ${mensaje}`.trim() : mensaje,

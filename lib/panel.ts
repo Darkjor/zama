@@ -13,6 +13,12 @@ export const INTERES_LABEL: Record<string, string> = {
   brochure: "Brochure (popup de salida)",
 };
 
+export const PREFERENCIA_LABEL: Record<string, string> = {
+  whatsapp: "WhatsApp",
+  llamada: "Llamada",
+  correo: "Correo",
+};
+
 export const PAGE_SIZE = 25;
 
 export function isTipo(v: string | undefined): v is LeadTipo {

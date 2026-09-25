@@ -4,6 +4,7 @@
 
 import { useActionState, useEffect, useId, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { CheckCircle } from "@phosphor-icons/react/ssr";
 import { Link } from "@/i18n/navigation";
 import { sendLead } from "@/lib/leads";
 import type { LeadField, LeadFormState } from "@/lib/lead-schema";
@@ -62,11 +63,8 @@ export function LeadForm({ variant, className = "" }: Props) {
 
   if (state.status === "success") {
     return (
-      <div className={`rounded-2xl bg-caoba p-7 text-white shadow-2xl shadow-caoba-deep/30 sm:p-8 ${className}`} role="status">
-        <svg viewBox="0 0 24 24" className="mb-4 size-10 text-arena" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden>
-          <circle cx="12" cy="12" r="10" />
-          <path d="M7.5 12.5l3 3 6-6.5" />
-        </svg>
+      <div className={`rounded-[1.75rem] bg-caoba p-7 text-white shadow-2xl shadow-caoba-deep/30 sm:p-8 ${className}`} role="status">
+        <CheckCircle weight="light" className="mb-4 size-11 text-arena" aria-hidden />
         <p className="display text-3xl">{isBrochure ? t("okBrochure") : t("ok")}</p>
         {isBrochure && (
           <a
@@ -94,7 +92,7 @@ export function LeadForm({ variant, className = "" }: Props) {
     <form
       action={action}
       noValidate
-      className={`rounded-2xl bg-caoba p-6 text-white shadow-2xl shadow-caoba-deep/30 sm:p-8 ${className}`}
+      className={`rounded-[1.75rem] bg-caoba p-6 text-white shadow-2xl shadow-caoba-deep/30 sm:p-8 ${className}`}
       aria-labelledby={`${uid}-title`}
     >
       <h3 id={`${uid}-title`} className="display mb-5 text-3xl">
@@ -130,6 +128,27 @@ export function LeadForm({ variant, className = "" }: Props) {
             </Field>
           )}
         </div>
+        {variant === "cotizacion" && (
+          <fieldset className="grid gap-1.5">
+            <legend className="font-ui mb-1.5 text-xs font-light tracking-wide text-white/80">{t("preferencia")}</legend>
+            <div className="grid grid-cols-3 gap-2">
+              {(["whatsapp", "llamada", "correo"] as const).map((v) => (
+                <label key={v} className="relative cursor-pointer">
+                  <input
+                    type="radio"
+                    name="contacto_preferido"
+                    value={v}
+                    defaultChecked={(values.contacto_preferido || "whatsapp") === v}
+                    className="peer sr-only"
+                  />
+                  <span className="font-ui flex min-h-11 items-center justify-center rounded-lg border border-white/35 px-2 text-center text-xs text-white/85 transition-colors peer-checked:border-crema peer-checked:bg-crema peer-checked:font-medium peer-checked:text-caoba-deep peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-crema hover:border-white/70">
+                    {t(v === "whatsapp" ? "prefWhatsapp" : v === "llamada" ? "prefLlamada" : "prefCorreo")}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        )}
         {variant === "cotizacion" ? (
           <Field id={`${uid}-interes`} label={t("interes")}>
             <select id={`${uid}-interes`} name="interes" className="field" defaultValue={values.interes || "lote"}>
@@ -143,7 +162,8 @@ export function LeadForm({ variant, className = "" }: Props) {
             <input id={`${uid}-empresa`} name="empresa" defaultValue={values.empresa} autoComplete="organization" className="field" />
           </Field>
         ) : null}
-        {!isBrochure && (
+        {/* Solo brokers dejan mensaje; en cotización cada campo extra baja la conversión. */}
+        {variant === "broker" && (
           <Field id={`${uid}-mensaje`} label={t("mensaje")}>
             <textarea id={`${uid}-mensaje`} name="mensaje" defaultValue={values.mensaje} rows={2} maxLength={2000} className="field resize-none" />
           </Field>

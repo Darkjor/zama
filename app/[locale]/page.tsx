@@ -5,6 +5,8 @@ import { LeadForm } from "@/components/LeadForm";
 import { Gallery } from "@/components/Gallery";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
+import { LotPlan } from "@/components/LotPlan";
+import { ArrowUpRight, Car, ShieldCheck, Tree, Waves } from "@phosphor-icons/react/ssr";
 import { disponibilidad, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
 import { formatDate, formatMXN, formatMXNCompact, formatNumber } from "@/lib/format";
@@ -45,7 +47,7 @@ function WaButton({ text, children, tone = "light", className = "" }: { text: st
       href={whatsappLink(text)}
       target="_blank"
       rel="noopener noreferrer"
-      className={`font-ui inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3.5 text-sm font-medium tracking-wide transition-colors ${tones[tone]} ${className}`}
+      className={`font-ui inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3.5 text-sm font-medium tracking-wide whitespace-nowrap transition-[background-color,transform] duration-200 active:scale-[0.98] ${tones[tone]} ${className}`}
     >
       <WhatsAppIcon className="size-4" />
       {children}
@@ -53,11 +55,13 @@ function WaButton({ text, children, tone = "light", className = "" }: { text: st
   );
 }
 
-function SectionHead({ eyebrow, title, tone = "dark", className = "" }: { eyebrow: string; title: ReactNode; tone?: "dark" | "light"; className?: string }) {
+// Etiqueta pequeña sobre el título: máximo 4 en la página (hero, Destino,
+// Tipologías y cierre) para no caer en el ritmo repetitivo de plantilla.
+function SectionHead({ eyebrow, title, tone = "dark", className = "" }: { eyebrow?: string; title: ReactNode; tone?: "dark" | "light"; className?: string }) {
   return (
     <div className={`reveal ${className}`}>
-      <p className={`eyebrow ${tone === "dark" ? "text-terracota" : "text-arena"}`}>{eyebrow}</p>
-      <h2 className={`display mt-4 text-4xl sm:text-5xl lg:text-6xl ${tone === "dark" ? "text-tinta" : "text-white"}`}>{title}</h2>
+      {eyebrow && <p className={`eyebrow mb-4 ${tone === "dark" ? "text-terracota" : "text-arena"}`}>{eyebrow}</p>}
+      <h2 className={`display text-4xl sm:text-5xl lg:text-6xl ${tone === "dark" ? "text-tinta" : "text-white"}`}>{title}</h2>
     </div>
   );
 }
@@ -122,38 +126,29 @@ async function Hero({ locale }: { locale: string }) {
 
 async function Intro() {
   const t = await getTranslations("intro");
-  const tw = await getTranslations("whatsapp");
   return (
     <section id="nosotros" className="bg-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-32">
-        <div className="reveal relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20 lg:max-w-none">
+        <div className="reveal relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:max-w-none">
           <Image src="/img/fachada-logo.webp" alt={site.name} fill sizes="(min-width: 1024px) 40vw, 90vw" className="reveal-zoom object-cover" />
         </div>
         <div className="reveal">
           <Image src="/brand/iso-cafe.svg" alt="" width={371} height={367} className="size-14" />
-          <p className="eyebrow mt-8 text-terracota">{t("eyebrow")}</p>
-          <h2 className="display mt-4 text-4xl text-tinta sm:text-5xl">{t("title")}</h2>
-          <p className="mt-7 text-lg leading-relaxed text-tinta-soft">{t("body1")}</p>
-          <p className="mt-4 text-lg leading-relaxed text-tinta-soft">{t("body2")}</p>
+          <h2 className="display mt-8 text-4xl text-tinta sm:text-5xl">{t("title")}</h2>
+          <p className="mt-7 max-w-[62ch] text-lg leading-relaxed text-tinta-soft">{t("body1")}</p>
+          <p className="mt-4 max-w-[62ch] text-lg leading-relaxed text-tinta-soft">{t("body2")}</p>
           <p className="font-ui mt-8 text-sm text-tinta-soft">
             {t("by")} <strong className="font-medium text-caoba">{site.developer}</strong>
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <WaButton text={tw("presentacion")} tone="dark">
-              {t("ctaWhatsapp")}
-            </WaButton>
-            <a
-              href={site.driveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-ui inline-flex items-center justify-center gap-2 rounded-full border border-caoba px-6 py-3.5 text-sm font-medium tracking-wide text-caoba transition-colors hover:bg-caoba hover:text-white"
-            >
-              {t("ctaDrive")}
-              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-                <path d="M7 17L17 7M9 7h8v8" />
-              </svg>
-            </a>
-          </div>
+          <a
+            href={site.driveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-ui mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-caoba px-6 py-3.5 text-sm font-medium tracking-wide text-caoba transition-colors hover:bg-caoba hover:text-white active:scale-[0.98]"
+          >
+            {t("ctaDrive")}
+            <ArrowUpRight className="size-4" aria-hidden />
+          </a>
         </div>
       </div>
     </section>
@@ -181,9 +176,7 @@ async function Vivir() {
     .filter((c) => mostrarAmenidades || c.n !== 4);
   return (
     <HorizontalScroll
-      eyebrow={t("eyebrow")}
       title={t("title")}
-      hint={t("hint")}
       watermark={site.name}
       cards={cards}
       cta={<WaButton text={tw("general")}>{t("cta")}</WaButton>}
@@ -194,9 +187,9 @@ async function Vivir() {
 async function Destino() {
   const t = await getTranslations("destino");
   const points = [
-    { icon: "M3 17c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 12c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0", text: t("laguna", { metros: ubicacion.lagunaMetros }) },
-    { icon: "M5 17h14M6 17l1.5-6h9L18 17M8 11l1-4h6l1 4M7.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM16.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3z", text: t("carretera", { metros: ubicacion.carreteraMetros }) },
-    { icon: "M12 21c-4-3-7-6-7-10a7 7 0 0114 0c0 4-3 7-7 10zM12 13a2 2 0 100-4 2 2 0 000 4z", text: t("biosfera") },
+    { Icon: Waves, text: t("laguna", { metros: ubicacion.lagunaMetros }) },
+    { Icon: Car, text: t("carretera", { metros: ubicacion.carreteraMetros }) },
+    { Icon: Tree, text: t("biosfera") },
   ];
   return (
     <section id="destino" className="bg-crema">
@@ -215,9 +208,7 @@ async function Destino() {
             {points.map((p) => (
               <li key={p.text} className="flex items-center gap-4">
                 <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-caoba text-arena">
-                  <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d={p.icon} />
-                  </svg>
+                  <p.Icon weight="light" className="size-6" aria-hidden />
                 </span>
                 <span className="font-ui text-base text-tinta">{p.text}</span>
               </li>
@@ -227,7 +218,7 @@ async function Destino() {
             {t("mapsCta")}
           </a>
         </div>
-        <div className="reveal relative mx-auto aspect-[1010/1262] w-full max-w-lg overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20">
+        <div className="reveal relative mx-auto aspect-[1010/1262] w-full max-w-lg overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20">
           <Image src="/img/mapa.webp" alt={t("mapAlt")} fill sizes="(min-width: 1024px) 36rem, 92vw" className="reveal-zoom object-cover" />
         </div>
       </div>
@@ -248,7 +239,7 @@ async function Galeria() {
   return (
     <section className="bg-crema pb-24 lg:pb-32" aria-labelledby="galeria-title">
       <div className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHead eyebrow={t("eyebrow")} title={<span id="galeria-title">{t("title")}</span>} />
+        <SectionHead title={<span id="galeria-title">{t("title")}</span>} />
       </div>
       <div className="reveal">
         <Gallery items={items} prev={t("prev")} next={t("next")} />
@@ -267,8 +258,7 @@ async function Amenidades() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/35 to-black/10 lg:bg-gradient-to-r lg:from-transparent lg:via-black/30 lg:to-black/75" />
       <div className="mx-auto flex min-h-[40rem] max-w-7xl items-end px-4 py-20 sm:px-6 lg:min-h-[46rem] lg:items-center lg:justify-end lg:px-8">
         <div className="reveal max-w-lg text-white">
-          <p className="eyebrow text-arena">{t("eyebrow")}</p>
-          <h2 id="amenidades-title" className="display mt-4 text-5xl sm:text-6xl">
+          <h2 id="amenidades-title" className="display text-5xl sm:text-6xl">
             {t("title")} <em className="block text-arena">{t("titleEm")}</em>
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-white/85">{t("body")}</p>
@@ -287,7 +277,7 @@ async function Inversion() {
   return (
     <section id="inversion" className="bg-paper">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <SectionHead eyebrow={t("eyebrow")} title={t("title")} className="text-center" />
+        <SectionHead title={t("title")} className="text-center" />
 
         <div className="mt-14 grid gap-5">
           <article className="reveal relative isolate overflow-hidden rounded-[1.75rem] bg-tinta text-white">
@@ -304,10 +294,7 @@ async function Inversion() {
               <ul className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                 {[t("certeza1"), t("certeza2"), t("certeza3")].map((item) => (
                   <li key={item} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
-                    <svg viewBox="0 0 24 24" className="size-7 text-arena" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden>
-                      <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
-                      <path d="M9 12l2 2 4-4.5" />
-                    </svg>
+                    <ShieldCheck weight="light" className="size-7 text-arena" aria-hidden />
                     <p className="font-ui mt-3 text-sm leading-snug text-white">{item}</p>
                   </li>
                 ))}
@@ -344,57 +331,89 @@ async function Tipologias({ locale }: { locale: string }) {
     "lote-b": { name: t("loteBName"), body: t("loteBBody") },
     villa: { name: t("villaName"), body: t("villaBody") },
   };
+  const lotes = tipologias.filter((tp) => tp.frente && tp.fondo);
+  const villa = tipologias.find((tp) => tp.plantas);
+  const maxFondo = Math.max(...lotes.map((l) => l.fondo!));
 
   return (
     <section id="tipologias" className="bg-crema">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <SectionHead eyebrow={t("eyebrow")} title={t("title")} />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {tipologias.map((tp, i) => {
-            const { name, body } = names[tp.id];
-            return (
-              <article key={tp.id} style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties} className="reveal group flex flex-col overflow-hidden rounded-[1.75rem] bg-white shadow-xl shadow-caoba/10">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={tp.image} alt={name} fill sizes="(min-width: 1024px) 26rem, (min-width: 768px) 50vw, 92vw" className="object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
-                  <span className="font-ui absolute top-4 left-4 rounded-full bg-crema/95 px-3.5 py-1.5 text-xs font-medium text-caoba">
-                    {formatNumber(tp.area, locale)} m²
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="display text-3xl text-tinta">{name}</h3>
-                  <p className="mt-3 flex-1 leading-relaxed text-tinta-soft">{body}</p>
-                  <dl className="font-ui mt-6 grid gap-2 border-t border-arena pt-5 text-sm">
-                    {tp.frente && tp.fondo ? (
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-tinta-soft">{t("terreno")}</dt>
-                        <dd className="text-tinta">
-                          {formatNumber(tp.area, locale)} m² · {t("medidas", { frente: formatNumber(tp.frente, locale), fondo: formatNumber(tp.fondo, locale) })}
-                        </dd>
-                      </div>
-                    ) : null}
-                    {tp.plantas ? (
-                      <div className="flex justify-between gap-4">
-                        <dt className="text-tinta-soft">{t("construccion")}</dt>
-                        <dd className="text-right text-tinta">{t("plantas", { baja: tp.plantas.baja, alta: tp.plantas.alta })}</dd>
-                      </div>
-                    ) : null}
-                  </dl>
-                  <div className="mt-6">
-                    <p className="eyebrow text-terracota">{t("desde")}</p>
-                    <p className="font-ui mt-1 text-3xl font-medium text-caoba">
-                      {formatMXN(tp.priceFrom, locale)} <span className="text-base font-light text-tinta-soft">MXN</span>
-                    </p>
-                    {tp.frente ? <p className="mt-1 text-sm text-tinta-soft">{t("perM2", { precio: formatMXN(pricePerM2, locale) })}</p> : null}
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-[1.05fr_1fr]">
+          {/* Lotes: la planta a escala deja ver la diferencia de frente. */}
+          <div className="grid gap-6">
+            {lotes.map((tp, i) => {
+              const { name, body } = names[tp.id];
+              const medidas = t("medidas", { frente: formatNumber(tp.frente!, locale), fondo: formatNumber(tp.fondo!, locale) });
+              return (
+                <article
+                  key={tp.id}
+                  style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties}
+                  className="reveal flex flex-col gap-7 rounded-[1.75rem] bg-white p-6 shadow-xl shadow-caoba/[0.07] ring-1 ring-arena/70 sm:flex-row sm:items-center sm:p-8"
+                >
+                  <div className="flex justify-center sm:w-32">
+                    <LotPlan frente={tp.frente!} fondo={tp.fondo!} maxFondo={maxFondo} locale={locale} label={`${name}: ${medidas}`} />
                   </div>
-                  <WaButton text={tw("tipologia", { nombre: name })} tone="dark" className="mt-6 w-full">
-                    {t("cotizar")}
-                  </WaButton>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                      <h3 className="display text-3xl text-tinta">{name}</h3>
+                      <p className="font-ui text-sm font-medium text-caoba">{formatNumber(tp.area, locale)} m²</p>
+                    </div>
+                    <p className="mt-2 max-w-[48ch] leading-relaxed text-tinta-soft">{body}</p>
+                    <div className="mt-6 flex flex-wrap items-end justify-between gap-4 border-t border-arena pt-5">
+                      <div>
+                        <p className="font-ui text-xs text-tinta-soft">{t("desde")}</p>
+                        <p className="font-ui text-2xl font-medium text-caoba tabular-nums sm:text-3xl">
+                          {formatMXN(tp.priceFrom, locale)} <span className="text-sm font-light text-tinta-soft">MXN</span>
+                        </p>
+                        <p className="font-ui mt-0.5 text-xs text-tinta-soft">{t("perM2", { precio: formatMXN(pricePerM2, locale) })}</p>
+                      </div>
+                      <WaButton text={tw("tipologia", { nombre: name })} tone="dark" className="!px-5 !py-3">
+                        {t("cotizar")}
+                      </WaButton>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Villa: pieza protagonista, con foto y construcción por planta. */}
+          {villa?.plantas && (
+            <article
+              style={{ "--reveal-delay": "280ms" } as CSSProperties}
+              className="reveal relative isolate flex min-h-[34rem] flex-col justify-end overflow-hidden rounded-[1.75rem] bg-tinta text-white"
+            >
+              <Image src={villa.image} alt={names.villa.name} fill sizes="(min-width: 1024px) 38rem, 92vw" className="reveal-zoom -z-10 object-cover" />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/45 to-black/0" />
+              <div className="p-7 sm:p-10">
+                <h3 className="display text-4xl sm:text-5xl">{names.villa.name}</h3>
+                <p className="mt-3 max-w-[46ch] leading-relaxed text-white/85">{names.villa.body}</p>
+                <dl className="font-ui mt-7 grid max-w-sm grid-cols-2 gap-6 border-t border-white/20 pt-5">
+                  <div>
+                    <dt className="text-xs text-white/75">{t("plantaBaja")}</dt>
+                    <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.baja} m²</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-white/75">{t("plantaAlta")}</dt>
+                    <dd className="mt-1 text-3xl font-light tabular-nums">{villa.plantas.alta} m²</dd>
+                  </div>
+                </dl>
+                <div className="mt-7 flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <p className="font-ui text-xs text-white/75">{t("desde")}</p>
+                    <p className="font-ui text-3xl font-medium tabular-nums">
+                      {formatMXN(villa.priceFrom, locale)} <span className="text-sm font-light text-white/75">MXN</span>
+                    </p>
+                  </div>
+                  <WaButton text={tw("tipologia", { nombre: names.villa.name })}>{t("cotizar")}</WaButton>
                 </div>
-              </article>
-            );
-          })}
+              </div>
+            </article>
+          )}
         </div>
-        <p className="mt-6 text-xs text-tinta-soft/70">{t("note")}</p>
+        <p className="mt-6 text-xs text-tinta-soft">{t("note")}</p>
       </div>
     </section>
   );
@@ -408,28 +427,30 @@ async function Disponibilidad({ locale }: { locale: string }) {
     { value: disponibilidad.vendidos, label: t("vendidos") },
     { value: disponibilidad.disponibles, label: t("disponibles"), highlight: true },
   ];
+  // Foto aérea de los lotes a sangre completa: la sección se lee como "esto
+  // es lo que queda", sin repetir el esquema texto + foto de otras secciones.
   return (
-    <section id="disponibilidad" className="bg-selva text-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:px-8 lg:py-32">
-        <div>
-          <SectionHead eyebrow={t("eyebrow")} title={t("title")} tone="light" />
-          <p className="reveal mt-6 max-w-lg text-lg leading-relaxed text-white/80">{t("body")}</p>
-          <dl className="reveal mt-10 grid grid-cols-3 gap-3">
+    <section id="disponibilidad" className="reveal relative isolate overflow-hidden bg-selva text-white">
+      <Image src="/img/lotes-aereo.webp" alt={t("alt")} fill sizes="100vw" className="reveal-zoom -z-10 object-cover" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-selva via-selva/85 to-selva/40 lg:bg-gradient-to-r lg:from-selva lg:via-selva/85 lg:to-selva/20" />
+      <div className="mx-auto flex min-h-[44rem] max-w-7xl items-end px-4 py-24 sm:px-6 lg:items-center lg:px-8 lg:py-32">
+        <div className="max-w-xl">
+          <h2 className="display text-4xl sm:text-5xl lg:text-6xl">{t("title")}</h2>
+          <p className="mt-6 max-w-[52ch] text-lg leading-relaxed text-white/85">{t("body")}</p>
+          <dl className="font-ui mt-10 grid grid-cols-3 divide-x divide-white/20">
             {stats.map((s) => (
-              <div key={s.label} className={`rounded-2xl p-5 ${s.highlight ? "bg-agua text-selva" : "bg-white/8 ring-1 ring-white/15"}`}>
-                <dd className="font-ui text-4xl font-light sm:text-5xl">{s.value}</dd>
-                <dt className={`font-ui mt-2 text-xs tracking-wide sm:text-sm ${s.highlight ? "text-selva/80" : "text-white/70"}`}>{s.label}</dt>
+              <div key={s.label} className="flex flex-col-reverse px-4 first:pl-0">
+                <dt className="mt-2 text-sm text-white/80">{s.label}</dt>
+                <dd className={`text-5xl font-light tabular-nums sm:text-6xl ${s.highlight ? "text-agua" : ""}`}>{s.value}</dd>
               </div>
             ))}
           </dl>
-          <p className="font-ui mt-4 text-xs text-white/55">{t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}</p>
+          <p className="font-ui mt-6 text-xs text-white/75">
+            {t("actualizado", { fecha: formatDate(disponibilidad.fecha, locale) })}. {t("fase2")}.
+          </p>
           <WaButton text={tw("disponibilidad")} className="mt-9">
             {t("cta")}
           </WaButton>
-        </div>
-        <div className="reveal relative aspect-[16/11] overflow-hidden rounded-[1.75rem] ring-1 ring-white/10">
-          <Image src="/img/lotes-aereo.webp" alt={t("alt")} fill sizes="(min-width: 1024px) 42rem, 92vw" className="reveal-zoom object-cover" />
-          <span className="font-ui absolute top-5 right-5 rounded-full bg-crema px-4 py-2 text-xs font-medium tracking-wide text-caoba">{t("fase2")}</span>
         </div>
       </div>
     </section>
@@ -442,11 +463,11 @@ async function Brokers() {
     <section id="brokers" className="bg-paper">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-32">
         <div>
-          <SectionHead eyebrow={t("eyebrow")} title={t("title")} />
+          <SectionHead title={t("title")} />
           <p className="reveal mt-6 max-w-lg text-lg leading-relaxed text-tinta-soft">{t("body")}</p>
           <LeadForm variant="broker" className="reveal mt-10 max-w-lg" />
         </div>
-        <div className="reveal relative hidden aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-caoba/20 lg:block">
+        <div className="reveal relative hidden aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:block">
           <Image src="/img/muelle.webp" alt={t("alt")} fill sizes="40vw" className="reveal-zoom object-cover" />
         </div>
       </div>

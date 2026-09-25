@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { formatDate } from "@/lib/format";
-import { INTERES_LABEL, TIPO_LABEL } from "@/lib/panel";
+import { INTERES_LABEL, PREFERENCIA_LABEL, TIPO_LABEL } from "@/lib/panel";
 import { PanelShell } from "../../PanelShell";
 
 export const metadata = { title: "Prospecto" };
@@ -24,6 +24,7 @@ export default async function LeadPage({ params }: PageProps<"/panel/leads/[id]"
     ["Tipo", TIPO_LABEL[lead.tipo]],
     ["Teléfono", lead.telefono],
     ["Correo", lead.email],
+    ["Prefiere que lo contacten por", lead.contacto_preferido ? PREFERENCIA_LABEL[lead.contacto_preferido] : null],
     ["Interés", lead.interes ? (INTERES_LABEL[lead.interes] ?? lead.interes) : null],
     ["Idioma de la página", lead.locale === "en" ? "Inglés" : "Español"],
     ["Mensaje", lead.mensaje],

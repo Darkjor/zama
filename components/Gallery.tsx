@@ -4,6 +4,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react/ssr";
 
 type Item = { src: string; caption: string };
 
@@ -42,8 +43,8 @@ export function Gallery({ items, prev, next }: { items: Item[]; prev: string; ne
       </ul>
       <div className="mx-auto mt-6 flex max-w-7xl justify-end gap-3 px-4 sm:px-6 lg:px-8">
         {[
-          { dir: -1 as const, label: prev, d: "M15 5l-7 7 7 7" },
-          { dir: 1 as const, label: next, d: "M9 5l7 7-7 7" },
+          { dir: -1 as const, label: prev, Icon: CaretLeft },
+          { dir: 1 as const, label: next, Icon: CaretRight },
         ].map((b) => (
           <button
             key={b.dir}
@@ -52,9 +53,7 @@ export function Gallery({ items, prev, next }: { items: Item[]; prev: string; ne
             aria-label={b.label}
             className="inline-flex size-12 items-center justify-center rounded-full border border-caoba/40 text-caoba transition-colors hover:bg-caoba hover:text-white"
           >
-            <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-              <path d={b.d} />
-            </svg>
+            <b.Icon className="size-5" aria-hidden />
           </button>
         ))}
       </div>

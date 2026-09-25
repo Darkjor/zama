@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
 import { formatDate } from "@/lib/format";
-import { INTERES_LABEL, PAGE_SIZE, TIPO_LABEL, daysAgoISO, isTipo, likePattern } from "@/lib/panel";
+import { INTERES_LABEL, PAGE_SIZE, PREFERENCIA_LABEL, TIPO_LABEL, daysAgoISO, isTipo, likePattern } from "@/lib/panel";
 import type { LeadTipo } from "@/lib/supabase/types";
 import { PanelShell } from "./PanelShell";
 
@@ -25,7 +25,7 @@ export default async function PanelHome({ searchParams }: PageProps<"/panel">) {
 
   let list = supabase
     .from("leads")
-    .select("id, created_at, tipo, nombre, telefono, email, interes, utm_source", { count: "exact" })
+    .select("id, created_at, tipo, nombre, telefono, email, interes, contacto_preferido, utm_source", { count: "exact" })
     .order("created_at", { ascending: false })
     .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1);
   if (tipo) list = list.eq("tipo", tipo);
@@ -135,7 +135,10 @@ export default async function PanelHome({ searchParams }: PageProps<"/panel">) {
                   </Link>
                   {l.email && <div className="text-xs text-tinta-soft">{l.email}</div>}
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap">{l.telefono}</td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  {l.telefono}
+                  {l.contacto_preferido && <div className="text-xs text-tinta-soft">Prefiere {PREFERENCIA_LABEL[l.contacto_preferido]}</div>}
+                </td>
                 <td className="px-4 py-3">{TIPO_LABEL[l.tipo]}</td>
                 <td className="px-4 py-3">{l.interes ? (INTERES_LABEL[l.interes] ?? l.interes) : "—"}</td>
                 <td className="px-4 py-3 text-tinta-soft">{l.utm_source ?? "Directo"}</td>

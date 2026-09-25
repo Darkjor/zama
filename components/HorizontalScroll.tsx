@@ -8,15 +8,13 @@ import Image from "next/image";
 export type HCard = { tag: string; title: string; body: string; image: string };
 
 type Props = {
-  eyebrow: string;
   title: string;
-  hint: string;
   watermark: string;
   cards: HCard[];
   cta: ReactNode;
 };
 
-export function HorizontalScroll({ eyebrow, title, hint, watermark, cards, cta }: Props) {
+export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number | null>(null);
@@ -44,6 +42,14 @@ export function HorizontalScroll({ eyebrow, title, hint, watermark, cards, cta }
       const top = el.getBoundingClientRect().top;
       const progress = Math.min(1, Math.max(0, -top / Math.max(1, distance)));
       tr.style.transform = `translate3d(${-progress * distance}px,0,0)`;
+      // Paralaje: la foto de cada tarjeta se desplaza un poco en sentido
+      // contrario al track, así la tarjeta se siente como una ventana.
+      const mid = window.innerWidth / 2;
+      tr.querySelectorAll<HTMLElement>("[data-parallax]").forEach((img) => {
+        const r = img.parentElement!.getBoundingClientRect();
+        const offset = (r.left + r.width / 2 - mid) / window.innerWidth;
+        img.style.transform = `translate3d(${offset * -48}px,0,0) scale(1.12)`;
+      });
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -69,8 +75,9 @@ export function HorizontalScroll({ eyebrow, title, hint, watermark, cards, cta }
   const pinned = height !== null;
 
   return (
-    <section ref={section} className="relative bg-selva text-white" style={pinned ? { height } : undefined} aria-label={title}>
-      <div className={`${pinned ? "sticky top-0 h-dvh" : ""} flex flex-col justify-center overflow-hidden py-20`}>
+    <section ref={section} className="relative overflow-x-clip bg-selva text-white" style={pinned ? { height } : undefined} aria-label={title}>
+      {/* sticky o relative: siempre posicionado, para que overflow-hidden recorte la marca de agua absoluta. */}
+      <div className={`${pinned ? "sticky top-0 h-dvh" : "relative"} flex flex-col justify-center overflow-hidden py-20`}>
         <p
           aria-hidden
           className="display pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-[22vw] leading-none whitespace-nowrap text-white/[0.04] select-none"
@@ -83,15 +90,8 @@ export function HorizontalScroll({ eyebrow, title, hint, watermark, cards, cta }
           className={`relative flex items-stretch gap-6 px-4 will-change-transform sm:px-6 lg:gap-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))] ${pinned ? "w-max" : "no-scrollbar snap-x snap-mandatory overflow-x-auto"}`}
         >
           <div className="flex w-[80vw] shrink-0 snap-start flex-col justify-center sm:w-[26rem]">
-            <p className="eyebrow text-agua">{eyebrow}</p>
-            <h2 className="display mt-4 text-5xl sm:text-6xl lg:text-7xl">{title}</h2>
-            <p className="font-ui mt-8 flex items-center gap-3 text-sm text-white/60">
-              {hint}
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden>
-                <path d="M4 12h16m-5-5l5 5-5 5" />
-              </svg>
-            </p>
-            <div className="mt-8">{cta}</div>
+            <h2 className="display text-5xl sm:text-6xl lg:text-7xl">{title}</h2>
+            <div className="mt-10">{cta}</div>
           </div>
 
           {cards.map((c, i) => (
@@ -100,11 +100,13 @@ export function HorizontalScroll({ eyebrow, title, hint, watermark, cards, cta }
               className="group relative isolate flex h-[min(34rem,68dvh)] w-[78vw] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-[1.75rem] ring-1 ring-white/10 sm:w-[22rem] lg:w-[24rem]"
               style={{ marginTop: i % 2 ? "2.5rem" : 0 }}
             >
-              <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 24rem, 78vw" className="-z-10 object-cover transition-transform duration-[1400ms] group-hover:scale-105" />
+              <div data-parallax className="absolute inset-0 -z-10 scale-[1.12] will-change-transform">
+                <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 26rem, 80vw" className="object-cover" />
+              </div>
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d2a1f] via-[#0d2a1f]/55 to-transparent" />
-              <span className="eyebrow absolute top-5 left-5 rounded-full bg-selva/80 px-3.5 py-1.5 text-[0.65rem] text-agua backdrop-blur-sm">{c.tag}</span>
               <div className="p-6 sm:p-7">
-                <h3 className="display text-3xl">{c.title}</h3>
+                <p className="font-ui text-xs font-medium tracking-[0.18em] text-agua uppercase">{c.tag}</p>
+                <h3 className="display mt-2 text-3xl">{c.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/80">{c.body}</p>
               </div>
             </article>

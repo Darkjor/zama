@@ -3,6 +3,7 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type LeadTipo = "cotizacion" | "contacto" | "broker";
+export type ContactoPreferido = "whatsapp" | "llamada" | "correo";
 
 export type Database = {
   __InternalSupabase: { PostgrestVersion: "14.5" };
@@ -16,6 +17,7 @@ export type Database = {
       };
       leads: {
         Row: {
+          contacto_preferido: ContactoPreferido | null;
           created_at: string;
           email: string | null;
           id: string;
@@ -31,6 +33,7 @@ export type Database = {
           utm_source: string | null;
         };
         Insert: {
+          contacto_preferido?: ContactoPreferido | null;
           created_at?: string;
           email?: string | null;
           id?: string;
