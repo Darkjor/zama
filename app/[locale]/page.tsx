@@ -496,7 +496,7 @@ async function Brokers() {
           <LeadForm variant="broker" className="reveal mt-10 max-w-lg" />
         </div>
         <div className="reveal relative hidden aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-2xl shadow-caoba/20 lg:block">
-          <Image src="/img/muelle.webp" alt={t("alt")} fill sizes="40vw" className="reveal-zoom object-cover" />
+          <Image src="/img/aliados.webp" alt={t("alt")} fill sizes="40vw" className="reveal-zoom object-cover object-[50%_42%]" />
         </div>
       </div>
     </section>
