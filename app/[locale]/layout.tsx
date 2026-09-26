@@ -3,6 +3,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { Cormorant_Garamond, Rubik, Signika } from "next/font/google";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
@@ -113,6 +114,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           <RevealObserver />
           <ExitIntent />
         </NextIntlClientProvider>
+        {/* Vercel Web Analytics: visitas y páginas vistas (solo la landing; el
+            panel es privado y no se mide). */}
+        <Analytics />
       </body>
     </html>
   );
