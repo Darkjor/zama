@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export async function generateMetadata({ params }: PageProps<"/[locale]/aviso-de-privacidad">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "privacy" });
-  return { title: `${t("title")} | ${site.name}`, alternates: { canonical: locale === "en" ? "/en/privacy" : "/aviso-de-privacidad" } };
+  return { title: `${t("title")} | ${site.name}`, description: t("metaDescription"), alternates: { canonical: locale === "en" ? "/en/privacy" : "/aviso-de-privacidad" } };
 }
 
 export default async function PrivacyPage({ params }: PageProps<"/[locale]/aviso-de-privacidad">) {

@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 
-export type HCard = { tag: string; title: string; body: string; image: string };
+export type HCard = { tag: string; title: string; body: string; image: string; alt: string };
 
 type Props = {
   title: string;
@@ -114,7 +114,7 @@ export function HorizontalScroll({ title, watermark, cards, cta }: Props) {
               style={{ marginTop: i % 2 ? "2.5rem" : 0 }}
             >
               <div data-parallax className="absolute inset-0 -z-10 scale-[1.12] will-change-transform">
-                <Image src={c.image} alt="" fill quality={60} sizes="(min-width: 1024px) 26rem, 80vw" className="object-cover" />
+                <Image src={c.image} alt={c.alt} fill quality={60} sizes="(min-width: 1024px) 26rem, 80vw" className="object-cover" />
               </div>
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d2a1f] via-[#0d2a1f]/55 to-transparent" />
               <div className="p-6 sm:p-7">

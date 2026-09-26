@@ -9,6 +9,7 @@ import { loadGsap, useAnimationsEnabled } from "@/lib/gsap";
 
 type Props = {
   image: string;
+  imageAlt: string;
   title: string;
   /** Contenido que aparece cuando la foto ya llenó la pantalla. */
   children: ReactNode;
@@ -16,7 +17,7 @@ type Props = {
   fallback: ReactNode;
 };
 
-export function CircleReveal({ image, title, children, fallback }: Props) {
+export function CircleReveal({ image, imageAlt, title, children, fallback }: Props) {
   const root = useRef<HTMLDivElement>(null);
   const animated = useAnimationsEnabled();
 
@@ -66,7 +67,7 @@ export function CircleReveal({ image, title, children, fallback }: Props) {
       <div className="sticky top-0 h-dvh overflow-hidden">
         <div data-circle className="absolute inset-0 overflow-hidden bg-tinta" style={{ clipPath: "circle(16% at 50% 50%)" }}>
           <div data-img className="absolute inset-0 will-change-transform">
-            <Image src={image} alt="" fill sizes="100vw" quality={60} className="object-cover" />
+            <Image src={image} alt={imageAlt} fill sizes="100vw" quality={60} className="object-cover" />
           </div>
           <div className="absolute inset-0 bg-black/60" />
         </div>

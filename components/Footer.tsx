@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { site } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
 
-const SECTIONS = ["destino", "inversion", "tipologias", "disponibilidad", "brokers"] as const;
+const SECTIONS = ["destino", "inversion", "tipologias", "disponibilidad", "brokers", "faq"] as const;
 
 export async function Footer() {
   const t = await getTranslations("footer");
