@@ -10,6 +10,7 @@
     "tipologias": "Homes & lots",
     "disponibilidad": "Availability",
     "brokers": "Brokers",
+    "faq": "FAQ",
     "cta": "Talk to an advisor",
     "menu": "Open menu",
     "close": "Close menu",
@@ -181,6 +182,47 @@
     "body": "Book a private presentation and find out why the next sunrise of your story could begin at ZAMÄ Bacalar.",
     "button": "Book your presentation"
   },
+  "alt": {
+    "laguna": "Aerial view of the turquoise Bacalar Lagoon",
+    "amanecer": "Sunrise over the jungle from a villa terrace at ZAMÄ Bacalar",
+    "villaFachada": "Stone and wood facade of the Boutique Villa",
+    "interior": "Boutique Villa interior in stone and wood with native plants",
+    "sendero": "Lit stone walkway through the vegetation",
+    "villaLateral": "Stone and wood Boutique Villa with native plants on the terraces",
+    "respaldo": "Signing a purchase agreement with the jungle in the background"
+  },
+  "claves": {
+    "title": "ZAMÄ at a glance",
+    "ubicacion": "{metros} m from Bacalar Lagoon, Quintana Roo",
+    "lotes": "Lots from {min} to {max} m², starting at {precio} MXN",
+    "villas": "{area} m² Boutique Villas, starting at {precio} MXN",
+    "legal": "Approved land use, environmental permit (MIA) and title deeds",
+    "disponibles": "{disponibles} of {totales} lots available in Phase 1"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "q1": "Where is ZAMÄ Bacalar located?",
+    "a1": "In Bacalar, Quintana Roo, {laguna} m from the Lagoon of Seven Colors and {carretera} m from the highway, facing the African Safari biosphere.",
+    "q2": "How much does a lot at ZAMÄ Bacalar cost?",
+    "a2": "Residential Lot A ({areaA} m², {medidasA}) starts at {precioA} MXN and Residential Lot B ({areaB} m², {medidasB}) at {precioB} MXN, at {precioM2} MXN per m². Prices subject to change and availability.",
+    "q3": "What is the Boutique Villa like?",
+    "a3": "It is a bioclimatic villa with {area} m² of construction ({baja} m² on the ground floor and {alta} m² upstairs), natural light and cross ventilation. It starts at {precio} MXN.",
+    "q4": "Does the development have legal certainty?",
+    "a4": "Yes. ZAMÄ has approved land use, an Environmental Impact Statement (MIA) and title deeds. Ask an advisor on WhatsApp for the legal pack.",
+    "q5": "How many lots are still available?",
+    "a5": "As of {fecha}, {disponibles} of {totales} lots in Phase 1 are available. Phase 2 is coming soon.",
+    "q6": "Who is developing ZAMÄ Bacalar?",
+    "a6": "{developer}, a developer experienced in creating communities that blend luxury, nature and legal certainty.",
+    "q7": "How do I reserve a lot?",
+    "a7": "Message us on WhatsApp at {whatsapp} or leave your details in the form. An advisor will share availability, payment options and the reservation process.",
+    "q8": "Can I sell ZAMÄ as a broker?",
+    "a8": "Yes. If you are a real estate agent or broker, join our partner network through the form on this page and get the full development information."
+  },
+  "share": {
+    "label": "Share",
+    "copied": "Link copied",
+    "text": "Check out ZAMÄ Bacalar: lots and Boutique Villas {metros} m from Bacalar Lagoon."
+  },
   "footer": {
     "tagline": "Residential lots and Boutique Villas in Bacalar, Quintana Roo, Mexico.",
     "navTitle": "Explore",
@@ -211,7 +253,8 @@
     "p4": "You can request access to, correction or deletion of your data, object to its use, or withdraw your consent by messaging us on WhatsApp at {whatsapp}.",
     "h5": "Changes to this notice",
     "p5": "Any changes to this notice will be posted on this page.",
-    "back": "Back to home"
+    "back": "Back to home",
+    "metaDescription": "Learn how ZAMÄ Bacalar and Mexo Company handle the personal data you share on this website and how to exercise your ARCO rights."
   },
   "notFound": {
     "title": "We couldn't find this page",

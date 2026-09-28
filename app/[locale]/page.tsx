@@ -6,11 +6,12 @@ import { Gallery } from "@/components/Gallery";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { WhatsAppIcon } from "@/components/WhatsAppFloat";
 import { LotPlan } from "@/components/LotPlan";
+import { ShareButton } from "@/components/ShareButton";
 import { HeroVideo } from "@/components/HeroVideo";
 import { IntroPhases } from "@/components/effects/IntroPhases";
 import { CircleReveal } from "@/components/effects/CircleReveal";
 import { Curtain } from "@/components/effects/Curtain";
-import { ArrowUpRight, Car, ShieldCheck, Tree, Waves } from "@phosphor-icons/react/ssr";
+import { ArrowUpRight, Car, CaretDown, ShieldCheck, Tree, Waves } from "@phosphor-icons/react/ssr";
 import { disponibilidad, efectos, mostrarAmenidades, pricePerM2, site, tipologias, ubicacion, type Tipologia } from "@/lib/site";
 import { whatsappLink } from "@/lib/whatsapp";
 import { formatDate, formatMXN, formatMXNCompact, formatNumber } from "@/lib/format";
@@ -24,6 +25,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       <JsonLd locale={locale} />
       <Hero locale={locale} />
+      <Claves locale={locale} />
       <Intro />
       <Vivir />
       <Tipologias locale={locale} />
@@ -33,7 +35,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <Inversion />
       <Disponibilidad locale={locale} />
       <Brokers />
-      <CtaFinal />
+      <Faq locale={locale} />
+      <CtaFinal locale={locale} />
     </>
   );
 }
@@ -81,8 +84,8 @@ function MaybeCurtain({ children, className }: { children: ReactNode; className?
 // vertical en celular. En celular, la horizontal se estiraba para cubrir el
 // hero y Chrome la contaba "más chica" que el video, que acababa siendo el
 // LCP (a los ~4 s). A su tamaño real, la foto es el LCP desde el primer render.
-function HeroPicture() {
-  const common = { alt: "", sizes: "100vw", quality: 60 };
+function HeroPicture({ alt }: { alt: string }) {
+  const common = { alt, sizes: "100vw", quality: 60 };
   const {
     props: { srcSet: desktop },
   } = getImageProps({ ...common, src: "/img/laguna.webp", width: 2200, height: 1650 });
@@ -92,7 +95,7 @@ function HeroPicture() {
   return (
     <picture>
       <source media="(min-width: 768px)" srcSet={desktop} sizes="100vw" />
-      <img {...rest} srcSet={mobile} alt="" loading="eager" fetchPriority="high" className="absolute inset-0 -z-10 size-full object-cover" />
+      <img {...rest} srcSet={mobile} alt={alt} loading="eager" fetchPriority="high" className="absolute inset-0 -z-10 size-full object-cover" />
     </picture>
   );
 }
@@ -100,10 +103,11 @@ function HeroPicture() {
 async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const tw = await getTranslations("whatsapp");
+  const ta = await getTranslations("alt");
   const precioEntrada = Math.min(...tipologias.filter((tp) => tp.id !== "villa").map((tp) => tp.priceFrom));
   return (
     <section id="inicio" className="relative isolate overflow-hidden bg-tinta">
-      <HeroPicture />
+      <HeroPicture alt={ta("laguna")} />
       {/* Video de Mexo, cargado después del LCP (ver HeroVideo). */}
       <HeroVideo src="/video/hero.webm" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
@@ -145,6 +149,7 @@ async function Hero({ locale }: { locale: string }) {
 
 async function Intro() {
   const t = await getTranslations("intro");
+  const ta = await getTranslations("alt");
   const driveLink = (
     <a
       href={site.driveUrl}
@@ -187,6 +192,7 @@ async function Intro() {
   return (
     <IntroPhases
       image="/img/amanecer.webp"
+      imageAlt={ta("amanecer")}
       eyebrow={t("fase1")}
       title={t("title")}
       body1={t("body1")}
@@ -209,13 +215,23 @@ async function Intro() {
 async function Vivir() {
   const t = await getTranslations("vivir");
   const tw = await getTranslations("whatsapp");
-  const images = ["/img/laguna.webp", "/img/amanecer.webp", "/img/villa-fachada.webp", "/img/casa-club.webp", "/img/interior.webp", "/img/sendero.webp"];
+  const ta = await getTranslations("alt");
+  const ta2 = await getTranslations("amenidades");
+  const images = [
+    { src: "/img/laguna.webp", alt: ta("laguna") },
+    { src: "/img/amanecer.webp", alt: ta("amanecer") },
+    { src: "/img/villa-fachada.webp", alt: ta("villaFachada") },
+    { src: "/img/casa-club.webp", alt: ta2("alt") },
+    { src: "/img/interior.webp", alt: ta("interior") },
+    { src: "/img/sendero.webp", alt: ta("sendero") },
+  ];
   const cards = images
-    .map((image, i) => {
+    .map(({ src: image, alt }, i) => {
       const n = i + 1;
       return {
         n,
         image,
+        alt,
         tag: t(`c${n}Tag` as "c1Tag"),
         title: t(`c${n}Title` as "c1Title"),
         body: t(`c${n}Body` as "c1Body"),
@@ -316,10 +332,11 @@ async function Amenidades() {
 async function Inversion() {
   const t = await getTranslations("inversion");
   const tw = await getTranslations("whatsapp");
+  const ta = await getTranslations("alt");
   const certezaItems = [t("certeza1"), t("certeza2"), t("certeza3")];
   const certezaCard = (
     <article className="reveal relative isolate overflow-hidden rounded-[1.75rem] bg-tinta text-white">
-      <Image src="/img/interior.webp" alt="" fill sizes="(min-width: 1280px) 80rem, 100vw" className="-z-10 object-cover opacity-55" />
+      <Image src="/img/interior.webp" alt={ta("interior")} fill sizes="(min-width: 1280px) 80rem, 100vw" className="-z-10 object-cover opacity-55" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
       <div className="grid gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:p-14">
         <div>
@@ -347,7 +364,7 @@ async function Inversion() {
       </div>
 
       {efectos.reveladoCircular && (
-        <CircleReveal image="/img/interior.webp" title={t("certezaTitle")} fallback={<div className="mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">{certezaCard}</div>}>
+        <CircleReveal image="/img/interior.webp" imageAlt={ta("interior")} title={t("certezaTitle")} fallback={<div className="mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">{certezaCard}</div>}>
           <p className="mx-auto max-w-xl text-lg text-white/85">{t("certezaBody")}</p>
           <ul className="mt-8 grid gap-3 sm:grid-cols-3">
             {certezaItems.map((item) => (
@@ -369,16 +386,16 @@ async function Inversion() {
 
           <div className="grid gap-5 md:grid-cols-2">
             {[
-              { title: t("sustentableTitle"), body: t("sustentableBody"), img: "/img/villa-lateral.webp", pos: "object-center" },
+              { title: t("sustentableTitle"), body: t("sustentableBody"), img: "/img/villa-lateral.webp", alt: ta("villaLateral"), pos: "object-center" },
               // Firma de contrato: se encuadra hacia la mano y la pluma.
-              { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/respaldo.webp", pos: "object-[68%_50%]" },
+              { title: t("respaldoTitle"), body: t("respaldoBody"), img: "/img/respaldo.webp", alt: ta("respaldo"), pos: "object-[68%_50%]" },
             ].map((c, i) => (
               <article
                 key={c.title}
                 style={{ "--reveal-delay": `${i * 140}ms` } as CSSProperties}
                 className="reveal relative isolate flex min-h-[22rem] overflow-hidden rounded-[1.75rem] bg-tinta text-white"
               >
-                <Image src={c.img} alt="" fill sizes="(min-width: 768px) 40rem, 100vw" className={`-z-10 object-cover ${c.pos}`} />
+                <Image src={c.img} alt={c.alt} fill sizes="(min-width: 768px) 40rem, 100vw" className={`-z-10 object-cover ${c.pos}`} />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/5" />
                 <div className="mt-auto p-8 sm:p-10">
                   <h3 className="display text-3xl text-arena sm:text-4xl">{c.title}</h3>
@@ -569,12 +586,15 @@ async function Brokers() {
   );
 }
 
-async function CtaFinal() {
+async function CtaFinal({ locale }: { locale: string }) {
   const t = await getTranslations("cta");
   const tw = await getTranslations("whatsapp");
+  const ta = await getTranslations("alt");
+  const ts = await getTranslations("share");
+  const tm = await getTranslations("meta");
   return (
     <section className="relative isolate overflow-hidden bg-tinta text-white">
-      <Image src="/img/sendero.webp" alt="" fill sizes="100vw" className="-z-10 object-cover object-[50%_60%]" />
+      <Image src="/img/sendero.webp" alt={ta("sendero")} fill sizes="100vw" className="-z-10 object-cover object-[50%_60%]" />
       <div className="absolute inset-0 -z-10 bg-black/55" />
       <div className="reveal mx-auto flex max-w-4xl flex-col items-center px-4 py-28 text-center sm:px-6 lg:py-36">
         <Image src="/brand/iso-blanco.svg" alt="" width={371} height={367} className="size-14" />
@@ -583,9 +603,103 @@ async function CtaFinal() {
           <em>{t("title")}</em>
         </h2>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">{t("body")}</p>
-        <WaButton text={tw("presentacion")} className="mt-10">
-          {t("button")}
-        </WaButton>
+        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+          <WaButton text={tw("presentacion")}>{t("button")}</WaButton>
+          <ShareButton
+            url={locale === "en" ? `${SITE_URL}/en` : SITE_URL}
+            title={tm("title")}
+            text={ts("text", { metros: ubicacion.lagunaMetros })}
+            label={ts("label")}
+            copiedLabel={ts("copied")}
+            className="rounded-full border border-white/60 px-6 py-3.5 text-sm font-medium tracking-wide text-white hover:bg-white/10"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Resumen para quien escanea (y para buscadores e IA): los datos clave del
+// desarrollo en una línea, justo después del hero. Todo sale de `lib/site.ts`.
+async function Claves({ locale }: { locale: string }) {
+  const t = await getTranslations("claves");
+  const lotes = tipologias.filter((tp) => tp.frente);
+  const villa = tipologias.find((tp) => tp.plantas)!;
+  const items = [
+    t("ubicacion", { metros: ubicacion.lagunaMetros }),
+    t("lotes", {
+      min: formatNumber(Math.min(...lotes.map((l) => l.area)), locale),
+      max: formatNumber(Math.max(...lotes.map((l) => l.area)), locale),
+      precio: formatMXNCompact(Math.min(...lotes.map((l) => l.priceFrom)), locale),
+    }),
+    t("villas", { area: villa.area, precio: formatMXNCompact(villa.priceFrom, locale) }),
+    t("legal"),
+    t("disponibles", { disponibles: disponibilidad.disponibles, totales: disponibilidad.totales }),
+  ];
+  return (
+    <section aria-labelledby="claves-title" className="bg-caoba-deep text-white">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 id="claves-title" className="eyebrow text-arena">
+          {t("title")}
+        </h2>
+        <ul className="m-keep-left font-ui mt-4 grid gap-x-8 gap-y-3 text-sm text-white/85 sm:grid-cols-2 lg:grid-cols-5">
+          {items.map((item) => (
+            <li key={item} className="flex gap-2.5">
+              <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-arena" />
+              <span className="flex-1">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+// Preguntas frecuentes con <details> nativo: abre y cierra sin JS y el texto
+// completo va en el HTML, así que lo leen buscadores y asistentes de IA.
+// Las cifras salen de `lib/site.ts`.
+async function Faq({ locale }: { locale: string }) {
+  const t = await getTranslations("faq");
+  const tt = await getTranslations("tipologias");
+  const [loteA, loteB] = tipologias.filter((tp) => tp.frente && tp.fondo);
+  const villa = tipologias.find((tp) => tp.plantas)!;
+  const medidas = (tp: Tipologia) => tt("medidas", { frente: formatNumber(tp.frente!, locale), fondo: formatNumber(tp.fondo!, locale) });
+  const items = [
+    { q: t("q1"), a: t("a1", { laguna: ubicacion.lagunaMetros, carretera: ubicacion.carreteraMetros }) },
+    {
+      q: t("q2"),
+      a: t("a2", {
+        areaA: formatNumber(loteA.area, locale),
+        medidasA: medidas(loteA),
+        precioA: formatMXN(loteA.priceFrom, locale),
+        areaB: formatNumber(loteB.area, locale),
+        medidasB: medidas(loteB),
+        precioB: formatMXN(loteB.priceFrom, locale),
+        precioM2: formatMXN(pricePerM2, locale),
+      }),
+    },
+    { q: t("q3"), a: t("a3", { area: villa.area, baja: villa.plantas!.baja, alta: villa.plantas!.alta, precio: formatMXN(villa.priceFrom, locale) }) },
+    { q: t("q4"), a: t("a4") },
+    { q: t("q5"), a: t("a5", { fecha: formatDate(disponibilidad.fecha, locale), disponibles: disponibilidad.disponibles, totales: disponibilidad.totales }) },
+    { q: t("q6"), a: t("a6", { developer: site.developer }) },
+    { q: t("q7"), a: t("a7", { whatsapp: site.whatsappDisplay }) },
+    { q: t("q8"), a: t("a8") },
+  ];
+  return (
+    <section id="faq" className="bg-crema">
+      <div className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+        <SectionHead title={t("title")} />
+        <div className="reveal m-keep-left mt-12 divide-y divide-arena border-y border-arena">
+          {items.map(({ q, a }) => (
+            <details key={q} className="group">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="display flex-1 text-2xl text-tinta sm:text-3xl">{q}</h3>
+                <CaretDown className="size-5 shrink-0 text-caoba transition-transform duration-200 group-open:rotate-180" aria-hidden />
+              </summary>
+              <p className="max-w-[68ch] pb-6 text-lg leading-relaxed text-tinta-soft">{a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   );

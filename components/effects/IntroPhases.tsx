@@ -8,6 +8,7 @@ import { loadGsap, useAnimationsEnabled } from "@/lib/gsap";
 
 type Props = {
   image: string;
+  imageAlt: string;
   eyebrow: string;
   title: string;
   body1: string;
@@ -16,7 +17,7 @@ type Props = {
   fallback: ReactNode;
 };
 
-export function IntroPhases({ image, eyebrow, title, body1, body2, fallback }: Props) {
+export function IntroPhases({ image, imageAlt, eyebrow, title, body1, body2, fallback }: Props) {
   const root = useRef<HTMLElement>(null);
   // El HTML del servidor trae la versión estática; se cambia a la animada solo
   // en el navegador. La sección está debajo del hero, así que el cambio no se
@@ -74,7 +75,7 @@ export function IntroPhases({ image, eyebrow, title, body1, body2, fallback }: P
     <section ref={root} id="nosotros" className="relative bg-tinta text-white" style={{ height: "340vh" }}>
       <div className="sticky top-0 h-dvh overflow-hidden">
         <div data-bg className="absolute inset-0 will-change-transform">
-          <Image src={image} alt="" fill sizes="100vw" quality={60} className="object-cover" />
+          <Image src={image} alt={imageAlt} fill sizes="100vw" quality={60} className="object-cover" />
         </div>
         <div className="absolute inset-0 bg-black/45" />
 
